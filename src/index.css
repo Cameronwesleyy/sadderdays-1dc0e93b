@@ -2,57 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 @layer base {
   :root {
-    /* Sadder Days - Hazy Etherealism Palette */
-    --background: 0 0% 4%;
-    --foreground: 45 10% 92%;
+    /* Sadder Days Color Palette - 0B0C0B, FFEBF5, FBFCFC */
+    --background: 120 8% 4%; /* #0B0C0B */
+    --foreground: 200 20% 99%; /* #FBFCFC */
 
-    --card: 0 0% 6%;
-    --card-foreground: 45 10% 92%;
+    --card: 120 8% 6%;
+    --card-foreground: 200 20% 99%;
 
-    --popover: 0 0% 6%;
-    --popover-foreground: 45 10% 92%;
+    --popover: 120 8% 6%;
+    --popover-foreground: 200 20% 99%;
 
-    --primary: 45 10% 92%;
-    --primary-foreground: 0 0% 4%;
+    --primary: 200 20% 99%;
+    --primary-foreground: 120 8% 4%;
 
-    --secondary: 0 0% 12%;
-    --secondary-foreground: 45 10% 85%;
+    --secondary: 120 8% 12%;
+    --secondary-foreground: 200 20% 95%;
 
-    --muted: 0 0% 14%;
-    --muted-foreground: 0 0% 55%;
+    --muted: 120 8% 14%;
+    --muted-foreground: 0 0% 50%;
 
-    --accent: 0 0% 18%;
-    --accent-foreground: 45 10% 92%;
+    --accent: 120 8% 18%;
+    --accent-foreground: 200 20% 99%;
 
     --destructive: 0 62% 50%;
-    --destructive-foreground: 45 10% 92%;
+    --destructive-foreground: 200 20% 99%;
 
-    --border: 0 0% 18%;
-    --input: 0 0% 14%;
-    --ring: 45 10% 92%;
+    --border: 120 8% 18%;
+    --input: 120 8% 14%;
+    --ring: 200 20% 99%;
 
-    --radius: 0.25rem;
+    --radius: 0px;
 
     /* Custom Sadder Days tokens */
-    --haze: 0 0% 8%;
-    --fog: 45 5% 75%;
-    --cream: 45 15% 95%;
-    --charcoal: 0 0% 10%;
-    --yin: 0 0% 98%;
-    --yang: 0 0% 6%;
-    
-    /* Gradients */
-    --gradient-fog: radial-gradient(ellipse at 50% 0%, hsl(0 0% 20% / 0.4) 0%, transparent 60%);
-    --gradient-haze: linear-gradient(180deg, hsl(0 0% 4%) 0%, hsl(0 0% 8%) 50%, hsl(0 0% 4%) 100%);
-    --gradient-vignette: radial-gradient(ellipse at center, transparent 0%, hsl(0 0% 0% / 0.6) 100%);
-    
+    --sd-black: 120 8% 4%; /* #0B0C0B */
+    --sd-pink: 330 100% 96%; /* #FFEBF5 */
+    --sd-white: 200 20% 99%; /* #FBFCFC */
+    --sd-red: 0 80% 55%;
+
     /* Shadows */
     --shadow-ethereal: 0 20px 60px -15px hsl(0 0% 0% / 0.5);
-    --shadow-glow: 0 0 40px hsl(45 10% 92% / 0.1);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -65,25 +57,25 @@
   }
 
   .dark {
-    --background: 0 0% 4%;
-    --foreground: 45 10% 92%;
-    --card: 0 0% 6%;
-    --card-foreground: 45 10% 92%;
-    --popover: 0 0% 6%;
-    --popover-foreground: 45 10% 92%;
-    --primary: 45 10% 92%;
-    --primary-foreground: 0 0% 4%;
-    --secondary: 0 0% 12%;
-    --secondary-foreground: 45 10% 85%;
-    --muted: 0 0% 14%;
-    --muted-foreground: 0 0% 55%;
-    --accent: 0 0% 18%;
-    --accent-foreground: 45 10% 92%;
+    --background: 120 8% 4%;
+    --foreground: 200 20% 99%;
+    --card: 120 8% 6%;
+    --card-foreground: 200 20% 99%;
+    --popover: 120 8% 6%;
+    --popover-foreground: 200 20% 99%;
+    --primary: 200 20% 99%;
+    --primary-foreground: 120 8% 4%;
+    --secondary: 120 8% 12%;
+    --secondary-foreground: 200 20% 95%;
+    --muted: 120 8% 14%;
+    --muted-foreground: 0 0% 50%;
+    --accent: 120 8% 18%;
+    --accent-foreground: 200 20% 99%;
     --destructive: 0 62% 50%;
-    --destructive-foreground: 45 10% 92%;
-    --border: 0 0% 18%;
-    --input: 0 0% 14%;
-    --ring: 45 10% 92%;
+    --destructive-foreground: 200 20% 99%;
+    --border: 120 8% 18%;
+    --input: 120 8% 14%;
+    --ring: 200 20% 99%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -110,7 +102,7 @@
   }
 
   ::selection {
-    @apply bg-primary text-primary-foreground;
+    @apply bg-sd-pink text-background;
   }
 }
 
@@ -124,21 +116,8 @@
     height: 100%;
     pointer-events: none;
     z-index: 9999;
-    opacity: 0.03;
+    opacity: 0.02;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  }
-
-  /* Fog effect */
-  .fog-overlay {
-    position: absolute;
-    inset: 0;
-    background: var(--gradient-fog);
-    pointer-events: none;
-  }
-
-  /* Haze background */
-  .haze-bg {
-    background: var(--gradient-haze);
   }
 
   /* Nav blur */
@@ -146,15 +125,9 @@
     @apply backdrop-blur-xl bg-background/70 border-b border-border/50;
   }
 
-  /* Ethereal card */
-  .card-ethereal {
-    @apply bg-card/50 backdrop-blur-sm border border-border/30;
-    box-shadow: var(--shadow-ethereal);
-  }
-
-  /* Text glow */
-  .text-glow {
-    text-shadow: 0 0 60px hsl(45 10% 92% / 0.3);
+  /* Minimal card */
+  .card-minimal {
+    @apply border border-border/20;
   }
 
   /* Link underline animation */
@@ -170,15 +143,6 @@
   .link-hover:hover::after {
     @apply w-full;
   }
-
-  /* Yin Yang specific */
-  .yin-gradient {
-    background: linear-gradient(135deg, hsl(var(--yin)) 0%, hsl(0 0% 85%) 100%);
-  }
-
-  .yang-gradient {
-    background: linear-gradient(135deg, hsl(var(--yang)) 0%, hsl(0 0% 15%) 100%);
-  }
 }
 
 @layer utilities {
@@ -188,6 +152,18 @@
 
   .tracking-widest-custom {
     letter-spacing: 0.25em;
+  }
+
+  .text-sd-red {
+    color: hsl(0 80% 55%);
+  }
+
+  .text-sd-pink {
+    color: hsl(var(--sd-pink));
+  }
+
+  .bg-sd-pink {
+    background-color: hsl(var(--sd-pink));
   }
 
   .animate-fade-up {
