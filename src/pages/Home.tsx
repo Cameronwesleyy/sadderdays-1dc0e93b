@@ -103,10 +103,8 @@ const Home = () => {
         }} viewport={{
           once: true
         }} className="max-w-4xl">
-            <p className="font-display text-2xl md:text-4xl tracking-tighter-custom leading-tight mb-4">
-              I'M NOT INTERESTED IN BEING PERFECT. I AM NOT A SYMBOL, NOT A FACE OF THE ERA, NOT A DOLL.
-              <br />
-              <span className="text-muted-foreground">I AM THE SIGNAL.</span>
+            <p className="font-display text-4xl md:text-6xl tracking-tighter-custom leading-tight mb-4">
+              SADDERDAYS.WORLD
             </p>
             <p className="text-[10px] tracking-widest-custom text-muted-foreground mt-8">
               — SADDER DAYS PHILOSOPHY
