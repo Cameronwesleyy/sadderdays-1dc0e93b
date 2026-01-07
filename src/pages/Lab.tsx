@@ -2,10 +2,11 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Download, ArrowRight } from "lucide-react";
 import PageTransition from "@/components/PageTransition";
+import CoinFlipGame from "@/components/CoinFlipGame";
 import yinYangLogo from "@/assets/yin-yang-logo.png";
 
 const Lab = () => {
-  const [activeTab, setActiveTab] = useState<"generator" | "quiz">("generator");
+  const [activeTab, setActiveTab] = useState<"generator" | "coinflip" | "quiz">("generator");
 
   return (
     <PageTransition>
@@ -29,11 +30,12 @@ const Lab = () => {
           >
             {[
               { id: "generator", label: "GENERATOR" },
+              { id: "coinflip", label: "FLIP A COIN" },
               { id: "quiz", label: "YIN OR YANG" },
             ].map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id as "generator" | "quiz")}
+                onClick={() => setActiveTab(tab.id as "generator" | "coinflip" | "quiz")}
                 className={`text-sm tracking-widest-custom transition-all ${
                   activeTab === tab.id
                     ? "text-foreground"
@@ -47,11 +49,9 @@ const Lab = () => {
 
           {/* Content */}
           <AnimatePresence mode="wait">
-            {activeTab === "generator" ? (
-              <YinYangGenerator key="generator" />
-            ) : (
-              <QuizSection key="quiz" />
-            )}
+            {activeTab === "generator" && <YinYangGenerator key="generator" />}
+            {activeTab === "coinflip" && <CoinFlipGame key="coinflip" />}
+            {activeTab === "quiz" && <QuizSection key="quiz" />}
           </AnimatePresence>
         </div>
       </div>
