@@ -11,6 +11,7 @@ import CartDrawer from "@/components/CartDrawer";
 import Enter from "./pages/Enter";
 import Home from "./pages/Home";
 import Merch from "./pages/Merch";
+import Product from "./pages/Product";
 import Music from "./pages/Music";
 import Members from "./pages/Members";
 import Tour from "./pages/Tour";
@@ -36,6 +37,7 @@ const App = () => (
                 <Route path="/" element={<Enter />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="/merch" element={<Merch />} />
+                <Route path="/product/:id" element={<Product />} />
                 <Route path="/music" element={<Music />} />
                 <Route path="/members" element={<Members />} />
                 <Route path="/tour" element={<Tour />} />

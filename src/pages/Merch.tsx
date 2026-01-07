@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import PageTransition from "@/components/PageTransition";
-import { useCart } from "@/context/CartContext";
 import merch01 from "@/assets/merch-01.jpg";
 import merch02 from "@/assets/merch-02.jpg";
 import merch03 from "@/assets/merch-03.jpg";
@@ -17,39 +17,8 @@ const products = [
   { id: "lw-06", name: "LOUNGEWEAR PACK", variant: "06", price: 28, image: merch06 },
 ];
 
-const digitalAlbum = {
-  id: "digital-album",
-  name: "YIN/YANG DIGITAL",
-  price: 1.99,
-  image: "",
-};
-
 const Merch = () => {
-  const { addItem, setIsOpen } = useCart();
-
-  const handleAddToCart = (product: typeof products[0]) => {
-    // Add product
-    addItem({
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      quantity: 1,
-      image: product.image,
-      variant: product.variant,
-    });
-
-    // Auto-bundle digital album
-    addItem({
-      id: digitalAlbum.id,
-      name: digitalAlbum.name,
-      price: digitalAlbum.price,
-      quantity: 1,
-      image: "",
-      variant: "Digital",
-    });
-
-    setIsOpen(true);
-  };
+  const navigate = useNavigate();
 
   return (
     <PageTransition>
@@ -87,7 +56,7 @@ const Merch = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.1 + index * 0.05 }}
-                onClick={() => handleAddToCart(product)}
+                onClick={() => navigate(`/product/${product.id}`)}
                 className="cursor-pointer group"
               >
                 {/* Image */}
