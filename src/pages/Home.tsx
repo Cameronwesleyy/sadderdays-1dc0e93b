@@ -154,10 +154,10 @@ const Home = () => {
           opacity: 1
         }} viewport={{
           once: true
-        }} className="mb-8">
+        }} className="mb-8 border-solid border-primary">
             <h2 className="font-display text-4xl md:text-6xl tracking-tighter-custom text-sd-pink">
               HIGHLIGHTED
-              <br />
+              <br className="" />
               WORKS
             </h2>
             <p className="font-display text-2xl md:text-4xl tracking-tighter-custom text-muted-foreground">
@@ -195,9 +195,9 @@ const Home = () => {
           once: true
         }} className="md:col-span-4">
             <h2 className="font-display text-5xl md:text-7xl tracking-tighter-custom mb-6">
-              THE
+              live
               <br />
-              RUNWAY
+              shows
             </h2>
             <Link to="/tour" className="text-[10px] tracking-widest-custom editorial-link">
               VIEW TOUR DATES
