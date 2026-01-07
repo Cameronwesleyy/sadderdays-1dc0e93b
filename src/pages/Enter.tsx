@@ -1,94 +1,76 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const Enter = () => {
-  const [entered, setEntered] = useState(false);
+  const navigate = useNavigate();
+
+  const handleEnter = () => {
+    navigate("/home");
+  };
 
   return (
-    <AnimatePresence>
-      {!entered ? (
-        <motion.div
-          key="enter"
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-background z-50 overflow-hidden cursor-pointer"
-          onClick={() => setEntered(true)}
-        >
-          {/* Marquee Text Background */}
-          <div className="absolute inset-0 flex flex-col justify-center overflow-hidden">
-            {Array.from({ length: 15 }).map((_, rowIndex) => (
-              <motion.div
-                key={rowIndex}
-                className="whitespace-nowrap"
-                animate={{
-                  x: rowIndex % 2 === 0 ? [0, -1920] : [-1920, 0],
-                }}
-                transition={{
-                  duration: 20 + rowIndex * 2,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-              >
-                <span className="text-5xl md:text-7xl font-bold tracking-tighter-custom inline-block">
-                  {Array.from({ length: 8 }).map((_, i) => (
-                    <span
-                      key={i}
-                      className={`mr-8 ${
-                        (rowIndex + i) % 3 === 0
-                          ? "text-foreground"
-                          : (rowIndex + i) % 3 === 1
-                          ? "text-foreground/40"
-                          : "text-foreground/20"
-                      }`}
-                    >
-                      SADDER DAYS.
-                    </span>
-                  ))}
-                </span>
-              </motion.div>
-            ))}
-          </div>
+    <motion.div
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 bg-background z-50 overflow-y-auto cursor-pointer"
+      onClick={handleEnter}
+    >
+      {/* Vertical scroll marquee */}
+      <div className="min-h-[200vh] flex flex-col items-center justify-start pt-[20vh] pb-32">
+        {/* Domain text - thin font */}
+        {Array.from({ length: 12 }).map((_, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: i * 0.05 }}
+            className={`text-4xl md:text-6xl lg:text-8xl font-thin tracking-tighter-custom mb-4 ${
+              i % 3 === 0
+                ? "text-foreground"
+                : i % 3 === 1
+                ? "text-foreground/30"
+                : "text-foreground/10"
+            }`}
+          >
+            sadderdays.world
+          </motion.div>
+        ))}
 
-          {/* Center Enter Button */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.5 }}
-              className="text-center bg-background/80 backdrop-blur-sm px-12 py-8"
-            >
-              <p className="text-xs tracking-widest-custom text-muted-foreground mb-2">
-                "더 슬픈 날들"
-              </p>
-              <motion.p
-                animate={{ opacity: [1, 0.5, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="text-xs tracking-widest-custom"
-              >
-                enter.
-              </motion.p>
-            </motion.div>
-          </div>
-        </motion.div>
-      ) : (
+        {/* Center CTA */}
         <motion.div
-          key="redirect"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+          className="fixed bottom-12 left-1/2 -translate-x-1/2 text-center"
         >
-          <Link to="/home" replace>
-            <motion.div
-              initial={{ opacity: 1 }}
-              animate={{ opacity: 0 }}
-              transition={{ delay: 0.1 }}
-              onAnimationComplete={() => {
-                window.location.href = "/home";
-              }}
-            />
-          </Link>
+          <motion.p
+            animate={{ opacity: [1, 0.4, 1] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="text-sd-red text-xs tracking-widest-custom font-light"
+          >
+            push to enter
+          </motion.p>
         </motion.div>
-      )}
-    </AnimatePresence>
+
+        {/* More text as you scroll */}
+        {Array.from({ length: 8 }).map((_, i) => (
+          <motion.div
+            key={`bottom-${i}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 + i * 0.05 }}
+            className={`text-4xl md:text-6xl lg:text-8xl font-thin tracking-tighter-custom mb-4 ${
+              i % 3 === 0
+                ? "text-foreground/10"
+                : i % 3 === 1
+                ? "text-foreground/30"
+                : "text-foreground"
+            }`}
+          >
+            sadderdays.world
+          </motion.div>
+        ))}
+      </div>
+    </motion.div>
   );
 };
 
