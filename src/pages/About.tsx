@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, MapPin, Send } from "lucide-react";
+import { Send } from "lucide-react";
 import PageTransition from "@/components/PageTransition";
+import CrossIcon from "@/components/CrossIcon";
+import aboutHero from "@/assets/about-hero.jpg";
 
 const About = () => {
   const [formData, setFormData] = useState({
@@ -20,220 +22,153 @@ const About = () => {
 
   return (
     <PageTransition>
-      <div className="min-h-screen pt-24 pb-16">
-        <div className="container mx-auto px-6">
-          {/* Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-16"
-          >
-            <p className="text-xs tracking-widest-custom text-muted-foreground mb-4">
-              OUR STORY
-            </p>
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tighter-custom mb-6">
-              ABOUT
-            </h1>
-          </motion.div>
+      <div className="min-h-screen">
+        {/* Hero Image */}
+        <section className="relative h-screen">
+          <img
+            src={aboutHero}
+            alt="Sadder Days"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <CrossIcon size="lg" className="text-cream" />
+          </div>
+        </section>
 
-          {/* About Content */}
-          <div className="max-w-4xl mx-auto">
+        {/* Story Section */}
+        <section className="py-24 px-6">
+          <div className="max-w-2xl mx-auto">
             <motion.div
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="grid md:grid-cols-2 gap-12 mb-24"
+              className="text-center mb-16"
             >
-              {/* Story */}
-              <div>
-                <h2 className="text-2xl font-bold tracking-tighter-custom mb-6">
-                  THE HAZE
-                </h2>
-                <div className="space-y-4 text-muted-foreground leading-relaxed">
-                  <p>
-                    Sadder Days emerged from the fog of late-night sessions and shared 
-                    silences. Four artists drawn together by the spaces between notes, 
-                    the moments before dawn, the beauty in melancholy.
-                  </p>
-                  <p>
-                    Our sound lives in the liminal — neither fully here nor there. 
-                    We create music for the in-between moments, the quiet reflections, 
-                    the drives through empty streets at 3am.
-                  </p>
-                  <p>
-                    The name "Sadder Days" isn't about despair. It's about embracing 
-                    the full spectrum of human emotion, finding beauty in the shadows, 
-                    and understanding that melancholy can be its own form of light.
-                  </p>
-                </div>
-              </div>
-
-              {/* Philosophy */}
-              <div>
-                <h2 className="text-2xl font-bold tracking-tighter-custom mb-6">
-                  YIN & YANG
-                </h2>
-                <div className="space-y-4 text-muted-foreground leading-relaxed">
-                  <p>
-                    Our visual and sonic identity is built on duality. The interplay 
-                    of light and dark, silence and sound, presence and absence.
-                  </p>
-                  <p>
-                    We believe in the power of contrast — how the darkest moments 
-                    make the light more meaningful, how silence gives weight to every note.
-                  </p>
-                  <p>
-                    This philosophy extends to our community. Team Yin. Team Yang. 
-                    Two sides of the same experience, unified by the music that flows 
-                    through both.
-                  </p>
-                </div>
-              </div>
+              <p className="text-xs tracking-widest-custom text-muted-foreground mb-4">
+                HOUSTON, TEXAS
+              </p>
             </motion.div>
 
-            {/* Stats */}
             <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-24"
+              className="space-y-8 text-sm leading-relaxed text-muted-foreground"
             >
-              {[
-                { label: "YEARS ACTIVE", value: "5" },
-                { label: "ALBUMS", value: "2" },
-                { label: "SHOWS PLAYED", value: "127" },
-                { label: "COUNTRIES", value: "18" },
-              ].map((stat, index) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="text-center"
-                >
-                  <p className="text-4xl md:text-5xl font-bold tracking-tighter-custom mb-2">
-                    {stat.value}
-                  </p>
-                  <p className="text-xs tracking-widest-custom text-muted-foreground">
-                    {stat.label}
-                  </p>
-                </motion.div>
-              ))}
+              <p>
+                Sadder Days combines influences from RnB, Jazz, and Classical music 
+                to create a unique metal experience that blends sensual grooves, 
+                elegant rhythms, and nocturnal soundscapes.
+              </p>
+
+              <p>
+                Members Grant and Cameron have been friends since elementary school, 
+                taking up their respective instruments in the Summer of 2020. From 
+                the start, the band wanted their music to provide a path for Black 
+                culture to become synonymous with elegance, class, and sensuality.
+              </p>
+
+              <p>
+                Pulling from prominent influences in Black music, Sadder Days created 
+                their own genre, "RnM"—combining sounds from RnB, Jazz, Gospel, House, 
+                Hip-Hop, and Classical music, wrapped in a neat, Metal package.
+              </p>
+
+              <p>
+                Nothing about the band is "just good enough". Every aspect has been 
+                carefully thought of and accounted for.
+              </p>
             </motion.div>
 
-            {/* Contact Section */}
             <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              className="card-ethereal p-8 md:p-12"
+              className="mt-16 text-center"
             >
-              <div className="grid md:grid-cols-2 gap-12">
-                {/* Contact Info */}
-                <div>
-                  <h2 className="text-2xl font-bold tracking-tighter-custom mb-6">
-                    CONTACT
-                  </h2>
-                  <div className="space-y-6">
-                    <div className="flex items-start gap-4">
-                      <Mail size={18} className="text-muted-foreground mt-1" />
-                      <div>
-                        <p className="text-xs tracking-widest-custom text-muted-foreground mb-1">
-                          GENERAL INQUIRIES
-                        </p>
-                        <p>hello@sadderdays.world</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-4">
-                      <Mail size={18} className="text-muted-foreground mt-1" />
-                      <div>
-                        <p className="text-xs tracking-widest-custom text-muted-foreground mb-1">
-                          BOOKING
-                        </p>
-                        <p>booking@sadderdays.world</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-4">
-                      <MapPin size={18} className="text-muted-foreground mt-1" />
-                      <div>
-                        <p className="text-xs tracking-widest-custom text-muted-foreground mb-1">
-                          MANAGEMENT
-                        </p>
-                        <p>Haze Management</p>
-                        <p className="text-muted-foreground text-sm">Los Angeles, CA</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <p className="text-sm italic text-muted-foreground">
+                "The band will not stop until the world has had Sadder Days."
+              </p>
+              <p className="text-xs text-muted-foreground/60 mt-4">
+                (And even then, they're going to keep going.)
+              </p>
+            </motion.div>
 
-                {/* Contact Form */}
-                <div>
-                  <h2 className="text-2xl font-bold tracking-tighter-custom mb-6">
-                    GET IN TOUCH
-                  </h2>
-                  {isSubmitted ? (
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      className="text-center py-12"
-                    >
-                      <p className="text-foreground mb-2">Message received.</p>
-                      <p className="text-muted-foreground text-sm">
-                        We'll fade back to you soon.
-                      </p>
-                    </motion.div>
-                  ) : (
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                      <div>
-                        <input
-                          type="text"
-                          value={formData.name}
-                          onChange={(e) =>
-                            setFormData({ ...formData, name: e.target.value })
-                          }
-                          placeholder="Name"
-                          className="w-full bg-transparent border-b border-border py-3 placeholder:text-muted-foreground focus:outline-none focus:border-foreground transition-colors"
-                        />
-                      </div>
-                      <div>
-                        <input
-                          type="email"
-                          value={formData.email}
-                          onChange={(e) =>
-                            setFormData({ ...formData, email: e.target.value })
-                          }
-                          placeholder="Email"
-                          className="w-full bg-transparent border-b border-border py-3 placeholder:text-muted-foreground focus:outline-none focus:border-foreground transition-colors"
-                        />
-                      </div>
-                      <div>
-                        <textarea
-                          value={formData.message}
-                          onChange={(e) =>
-                            setFormData({ ...formData, message: e.target.value })
-                          }
-                          placeholder="Message"
-                          rows={4}
-                          className="w-full bg-transparent border-b border-border py-3 placeholder:text-muted-foreground focus:outline-none focus:border-foreground transition-colors resize-none"
-                        />
-                      </div>
-                      <motion.button
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        type="submit"
-                        className="flex items-center gap-3 px-8 py-4 bg-foreground text-background text-xs tracking-widest-custom hover:opacity-90 transition-opacity"
-                      >
-                        SEND MESSAGE
-                        <Send size={14} />
-                      </motion.button>
-                    </form>
-                  )}
-                </div>
-              </div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="flex justify-center mt-16"
+            >
+              <CrossIcon size="sm" className="text-muted-foreground/30" />
             </motion.div>
           </div>
-        </div>
+        </section>
+
+        {/* Contact Section */}
+        <section className="py-24 px-6 border-t border-border/20">
+          <div className="max-w-md mx-auto">
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="text-center mb-12"
+            >
+              <p className="text-xs tracking-widest-custom text-muted-foreground">
+                CONTACT
+              </p>
+            </motion.div>
+
+            {isSubmitted ? (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-center"
+              >
+                <p className="text-sm text-muted-foreground">Message received.</p>
+              </motion.div>
+            ) : (
+              <motion.form
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                onSubmit={handleSubmit}
+                className="space-y-6"
+              >
+                <input
+                  type="text"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  placeholder="Name"
+                  className="w-full bg-transparent border-b border-border/50 py-3 text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:border-foreground/50 transition-colors"
+                />
+                <input
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  placeholder="Email"
+                  className="w-full bg-transparent border-b border-border/50 py-3 text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:border-foreground/50 transition-colors"
+                />
+                <textarea
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  placeholder="Message"
+                  rows={4}
+                  className="w-full bg-transparent border-b border-border/50 py-3 text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:border-foreground/50 transition-colors resize-none"
+                />
+                <motion.button
+                  whileHover={{ opacity: 0.7 }}
+                  whileTap={{ scale: 0.98 }}
+                  type="submit"
+                  className="flex items-center gap-3 text-xs tracking-widest-custom"
+                >
+                  SEND
+                  <Send size={12} />
+                </motion.button>
+              </motion.form>
+            )}
+          </div>
+        </section>
       </div>
     </PageTransition>
   );

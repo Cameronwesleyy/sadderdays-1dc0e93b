@@ -2,19 +2,23 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { useCart } from "@/context/CartContext";
+import CrossIcon from "./CrossIcon";
 
 const navLinks = [
   { name: "MERCH", path: "/merch" },
   { name: "MUSIC", path: "/music" },
   { name: "MEMBERS", path: "/members" },
-  { name: "TOUR", path: "/tour" },
   { name: "ABOUT", path: "/about" },
-  { name: "LAB", path: "/lab" },
+  { name: "CONTACT", path: "/about" },
 ];
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const { items, setIsOpen: setCartOpen } = useCart();
+
+  const cartCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
     <>
@@ -22,64 +26,62 @@ const Navigation = () => {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="fixed top-0 left-0 right-0 z-50 nav-blur"
+        className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm"
       >
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
+            {/* Logo - Script style */}
             <Link to="/" className="group">
               <motion.span
-                className="text-xl font-bold tracking-tighter-custom"
+                className="text-xl font-script"
                 whileHover={{ opacity: 0.7 }}
-                transition={{ duration: 0.2 }}
               >
-                SADDER DAYS
+                Sadder Days
               </motion.span>
             </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
               {navLinks.map((link) => (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  className="relative group"
-                >
+                <Link key={link.name} to={link.path}>
                   <motion.span
-                    className={`text-xs font-medium tracking-widest-custom transition-colors ${
+                    className={`text-[10px] tracking-widest-custom transition-colors ${
                       location.pathname === link.path
                         ? "text-foreground"
                         : "text-muted-foreground hover:text-foreground"
                     }`}
-                    whileHover={{ y: -2 }}
-                    transition={{ duration: 0.2 }}
+                    whileHover={{ opacity: 0.7 }}
                   >
                     {link.name}
                   </motion.span>
-                  {location.pathname === link.path && (
-                    <motion.div
-                      layoutId="activeNav"
-                      className="absolute -bottom-1 left-0 right-0 h-px bg-foreground"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                    />
-                  )}
                 </Link>
               ))}
             </div>
 
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden p-2"
-              aria-label="Toggle menu"
-            >
-              <motion.div
-                initial={false}
-                animate={{ rotate: isOpen ? 90 : 0 }}
-                transition={{ duration: 0.2 }}
+            {/* Cart Icon */}
+            <div className="flex items-center gap-4">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                onClick={() => setCartOpen(true)}
+                className="relative"
               >
-                {isOpen ? <X size={20} /> : <Menu size={20} />}
-              </motion.div>
-            </button>
+                <CrossIcon size="sm" className="text-foreground" />
+                {cartCount > 0 && (
+                  <span className="absolute -top-1 -right-2 w-4 h-4 bg-red-500 text-[10px] text-white flex items-center justify-center rounded-full">
+                    {cartCount}
+                  </span>
+                )}
+              </motion.button>
+
+              {/* Mobile Menu Button */}
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="md:hidden p-2"
+                aria-label="Toggle menu"
+              >
+                {isOpen ? <X size={18} /> : <Menu size={18} />}
+              </button>
+            </div>
           </div>
         </div>
       </motion.nav>
@@ -91,38 +93,26 @@ const Navigation = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-background/95 backdrop-blur-xl md:hidden"
+            className="fixed inset-0 z-40 bg-background md:hidden"
           >
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
-              transition={{ duration: 0.3, delay: 0.1 }}
-              className="flex flex-col items-center justify-center h-full gap-8"
-            >
+            <div className="flex flex-col items-center justify-center h-full gap-8">
               {navLinks.map((link, index) => (
                 <motion.div
-                  key={link.path}
+                  key={link.name}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 20 }}
-                  transition={{ duration: 0.3, delay: 0.1 + index * 0.05 }}
+                  transition={{ delay: index * 0.05 }}
                 >
                   <Link
                     to={link.path}
                     onClick={() => setIsOpen(false)}
-                    className={`text-3xl font-bold tracking-tighter-custom ${
-                      location.pathname === link.path
-                        ? "text-foreground"
-                        : "text-muted-foreground"
-                    }`}
+                    className="text-2xl tracking-widest-custom"
                   >
                     {link.name}
                   </Link>
                 </motion.div>
               ))}
-            </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
