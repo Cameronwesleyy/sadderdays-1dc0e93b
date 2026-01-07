@@ -55,15 +55,15 @@ const Home = () => {
           once: true
         }} className="md:col-span-5">
             <h2 className="font-display text-4xl md:text-6xl tracking-tighter-custom mb-6">
-              I'VE HAD
+              HELLO
               <br />
-              SADDER DAYS
+              PEOPLE
             </h2>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-xs mb-8">
               RnB meets Metal. A path for Black culture to become synonymous with elegance, class, and sensuality.
             </p>
             <Link to="/about" className="text-[10px] tracking-widest-custom editorial-link">
-              READ MORE
+               LISTEN HERE
             </Link>
           </motion.div>
 
