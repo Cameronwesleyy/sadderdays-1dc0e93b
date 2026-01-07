@@ -251,9 +251,11 @@ const Home = () => {
         }} viewport={{
           once: true
         }} className="md:col-span-4 md:col-start-8 md:self-end">
-            <h2 className="font-display text-6xl md:text-8xl tracking-tighter-custom text-right mb-4">
-              MOOD
-            </h2>
+            <Link to="/about" className="block">
+              <h2 className="font-display text-6xl md:text-8xl tracking-tighter-custom text-right mb-4 hover:text-muted-foreground transition-colors">
+                ABOUT
+              </h2>
+            </Link>
             <div className="flex gap-2 justify-end">
               <img src={cameronPortrait} alt="" className="w-20 h-28 object-cover" />
               <img src={handsCover} alt="" className="w-20 h-28 object-cover" />
