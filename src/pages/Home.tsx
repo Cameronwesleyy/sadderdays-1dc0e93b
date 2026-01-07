@@ -10,6 +10,10 @@ import merch01 from "@/assets/merch-01.jpg";
 import merch02 from "@/assets/merch-02.jpg";
 import merch03 from "@/assets/merch-03.jpg";
 import merch04 from "@/assets/merch-04.jpg";
+import angelsDuo from "@/assets/angels-duo.png";
+import albumHaze from "@/assets/album-haze.jpg";
+import yinYangCover from "@/assets/yin-yang-cover.jpg";
+import bandDuo from "@/assets/band-duo.jpg";
 
 const Home = () => {
   return (
@@ -75,7 +79,7 @@ const Home = () => {
             className="md:col-span-4 md:col-start-7"
           >
             <img
-              src={grantPortrait}
+              src={angelsDuo}
               alt="Grant"
               className="w-full aspect-[3/4] object-cover"
             />
@@ -89,7 +93,7 @@ const Home = () => {
             className="md:col-span-3 md:-mt-32"
           >
             <img
-              src={cameronPortrait}
+              src={bandDuo}
               alt="Cameron"
               className="w-full aspect-[4/5] object-cover"
             />
@@ -122,7 +126,7 @@ const Home = () => {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              src={handsCover}
+              src={yinYangCover}
               alt="Yin Yang Cover"
               className="w-full aspect-square object-cover mb-4"
             />
@@ -170,7 +174,7 @@ const Home = () => {
             viewport={{ once: true }}
             className="filmstrip bg-foreground px-2"
           >
-            {[merch01, merch02, merch03, merch04, grantPortrait, cameronPortrait, handsCover].map((img, i) => (
+            {[merch01, angelsDuo, merch02, bandDuo, merch03, duoPortrait, merch04, albumHaze, grantPortrait, yinYangCover, cameronPortrait, handsCover].map((img, i) => (
               <motion.img
                 key={i}
                 whileHover={{ scale: 1.05 }}
@@ -214,7 +218,7 @@ const Home = () => {
             className="md:col-span-5 md:col-start-5"
           >
             <img
-              src={duoPortrait}
+              src={angelsDuo}
               alt="Tour"
               className="w-full aspect-[4/5] object-cover object-top"
             />
@@ -243,7 +247,7 @@ const Home = () => {
             className="md:col-span-5"
           >
             <img
-              src={grantPortrait}
+              src={albumHaze}
               alt="Mood"
               className="w-full aspect-[3/4] object-cover"
             />
@@ -259,8 +263,8 @@ const Home = () => {
               MOOD
             </h2>
             <div className="flex gap-2 justify-end">
-              <img src={cameronPortrait} alt="" className="w-20 h-28 object-cover" />
-              <img src={handsCover} alt="" className="w-20 h-28 object-cover" />
+              <img src={bandDuo} alt="" className="w-20 h-28 object-cover" />
+              <img src={yinYangCover} alt="" className="w-20 h-28 object-cover" />
             </div>
           </motion.div>
 
