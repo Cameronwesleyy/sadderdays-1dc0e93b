@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import PageTransition from "@/components/PageTransition";
-import InteractiveYinYang from "@/components/InteractiveYinYang";
 import duoPortrait from "@/assets/duo-portrait.jpg";
 import grantPortrait from "@/assets/grant-portrait.jpg";
 import cameronPortrait from "@/assets/cameron-portrait.jpg";
@@ -89,11 +88,6 @@ const Home = () => {
         }} className="md:col-span-3 md:-mt-32">
             <img src={cameronPortrait} alt="Cameron" className="w-full aspect-[4/5] object-cover" />
           </motion.div>
-        </section>
-
-        {/* Interactive Yin Yang Section */}
-        <section className="px-6 md:px-12">
-          <InteractiveYinYang />
         </section>
 
         {/* About Me floating section */}
