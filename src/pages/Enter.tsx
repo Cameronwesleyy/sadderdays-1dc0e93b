@@ -13,7 +13,6 @@ const Enter = () => {
   const smoothX = useSpring(mouseX, { stiffness: 50, damping: 20 });
   const smoothY = useSpring(mouseY, { stiffness: 50, damping: 20 });
 
-  // Transform mouse position to offset values for each column
   const col1Y = useTransform(smoothY, [0, 1], [100, -100]);
   const col2Y = useTransform(smoothY, [0, 1], [-80, 80]);
   const col3Y = useTransform(smoothY, [0, 1], [120, -120]);
@@ -41,8 +40,7 @@ const Enter = () => {
 
   const columns = 3;
   const rowsPerColumn = 30;
-  const backgroundText = "sadderdays.world";
-  const mainText = "SADDERDAYS";
+  const text = "sadderdays.world";
   const pinkColor = "#FFD6EC";
 
   const columnTransforms = [
@@ -51,14 +49,24 @@ const Enter = () => {
     { y: col3Y, x: col3X, direction: 1 },
   ];
 
-  // Generate random explosion positions for each letter
-  const letterExplosions = useMemo(() => {
-    return mainText.split("").map(() => ({
-      x: (Math.random() - 0.5) * window.innerWidth * 1.5,
-      y: (Math.random() - 0.5) * window.innerHeight * 1.5,
-      rotate: (Math.random() - 0.5) * 720,
-      scale: 0.5 + Math.random() * 1.5,
-    }));
+  // Pre-generate explosion values for all letters
+  const explosionData = useMemo(() => {
+    const data: { x: number; y: number; rotate: number; scale: number }[][][] = [];
+    for (let col = 0; col < columns; col++) {
+      data[col] = [];
+      for (let row = 0; row < rowsPerColumn * 2; row++) {
+        data[col][row] = [];
+        for (let char = 0; char < text.length; char++) {
+          data[col][row][char] = {
+            x: (Math.random() - 0.5) * window.innerWidth * 2,
+            y: (Math.random() - 0.5) * window.innerHeight * 2,
+            rotate: (Math.random() - 0.5) * 1080,
+            scale: 0.3 + Math.random() * 2,
+          };
+        }
+      }
+    }
+    return data;
   }, []);
 
   return (
@@ -69,19 +77,19 @@ const Enter = () => {
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
-      {/* Background grid of repeating text */}
+      {/* Background grid of repeating text with exploding letters */}
       <div className="absolute inset-0 flex w-screen">
         {Array.from({ length: columns }).map((_, colIndex) => (
           <motion.div
             key={colIndex}
             className="flex-1 flex flex-col items-center overflow-visible"
             style={{
-              y: columnTransforms[colIndex].y,
-              x: columnTransforms[colIndex].x,
+              y: isHovering ? 0 : columnTransforms[colIndex].y,
+              x: isHovering ? 0 : columnTransforms[colIndex].x,
             }}
           >
             <motion.div
-              animate={{
+              animate={isHovering ? {} : {
                 y: columnTransforms[colIndex].direction === 1 
                   ? ["0%", "-50%"] 
                   : ["-50%", "0%"],
@@ -96,24 +104,55 @@ const Enter = () => {
               {[...Array(2)].map((_, loopIndex) => (
                 <div key={loopIndex} className="flex flex-col items-center">
                   {Array.from({ length: rowsPerColumn }).map((_, rowIndex) => {
+                    const actualRowIndex = loopIndex * rowsPerColumn + rowIndex;
                     const opacityPattern = [1, 0.12, 0.04, 0.22, 0.38, 0.06, 0.18, 0.45, 0.08, 0.3];
                     const baseOpacity = opacityPattern[(rowIndex + colIndex * 3) % opacityPattern.length];
-                    const isPink = (rowIndex + colIndex * 2) % 5 === 0;
-                    const textColor = isPink ? pinkColor : "white";
-                    const finalOpacity = isPink ? 0.85 : baseOpacity;
+                    const isPinkRow = (rowIndex + colIndex * 2) % 5 === 0;
                     
                     return (
                       <div
                         key={rowIndex}
-                        className="font-thin text-[clamp(1.4rem,5vw,3.5rem)] leading-[1.1] tracking-tight whitespace-nowrap"
-                        style={{
-                          opacity: finalOpacity,
-                          color: textColor,
-                          fontFamily: "'Inter', sans-serif",
-                          fontWeight: 100,
-                        }}
+                        className="whitespace-nowrap"
                       >
-                        {backgroundText}
+                        {text.split("").map((char, charIndex) => {
+                          const isPink = isPinkRow;
+                          const textColor = isPink ? pinkColor : "white";
+                          const finalOpacity = isPink ? 0.85 : baseOpacity;
+                          const explosion = explosionData[colIndex]?.[actualRowIndex]?.[charIndex] || { x: 0, y: 0, rotate: 0, scale: 1 };
+                          
+                          return (
+                            <motion.span
+                              key={charIndex}
+                              className="inline-block font-thin text-[clamp(1.4rem,5vw,3.5rem)] leading-[1.1] tracking-tight"
+                              style={{
+                                color: textColor,
+                                fontFamily: "'Inter', sans-serif",
+                                fontWeight: 100,
+                              }}
+                              animate={isHovering ? {
+                                x: explosion.x,
+                                y: explosion.y,
+                                rotate: explosion.rotate,
+                                scale: explosion.scale,
+                                opacity: finalOpacity * 0.6,
+                              } : {
+                                x: 0,
+                                y: 0,
+                                rotate: 0,
+                                scale: 1,
+                                opacity: finalOpacity,
+                              }}
+                              transition={{
+                                type: "spring",
+                                stiffness: 80,
+                                damping: 12,
+                                delay: (colIndex * 0.05) + (charIndex * 0.01),
+                              }}
+                            >
+                              {char}
+                            </motion.span>
+                          );
+                        })}
                       </div>
                     );
                   })}
@@ -122,50 +161,6 @@ const Enter = () => {
             </motion.div>
           </motion.div>
         ))}
-      </div>
-
-      {/* Exploding letters overlay */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="relative">
-          {mainText.split("").map((letter, index) => {
-            const isPink = index % 3 === 0;
-            
-            return (
-              <motion.span
-                key={index}
-                className="inline-block font-thin text-[clamp(3rem,12vw,10rem)] leading-none tracking-tight"
-                style={{
-                  color: isPink ? pinkColor : "white",
-                  fontFamily: "'Inter', sans-serif",
-                  fontWeight: 100,
-                  textShadow: "0 0 40px rgba(0,0,0,0.8)",
-                }}
-                initial={{ x: 0, y: 0, rotate: 0, scale: 1 }}
-                animate={isHovering ? {
-                  x: letterExplosions[index].x,
-                  y: letterExplosions[index].y,
-                  rotate: letterExplosions[index].rotate,
-                  scale: letterExplosions[index].scale,
-                  opacity: 0.8,
-                } : {
-                  x: 0,
-                  y: 0,
-                  rotate: 0,
-                  scale: 1,
-                  opacity: 1,
-                }}
-                transition={{
-                  type: "spring",
-                  stiffness: 100,
-                  damping: 15,
-                  delay: index * 0.02,
-                }}
-              >
-                {letter}
-              </motion.span>
-            );
-          })}
-        </div>
       </div>
 
       {/* Mouse-reactive glow that follows cursor - pink tinted */}
@@ -181,11 +176,11 @@ const Enter = () => {
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ 
-            opacity: isHovering ? 0 : 1, 
-            scale: isHovering ? 0.5 : 1 
+            opacity: 1, 
+            scale: 1 
           }}
           transition={{ duration: 0.4 }}
-          className="relative flex flex-col items-center gap-6 mt-48"
+          className="relative flex flex-col items-center gap-6"
         >
           {/* Dark backdrop for visibility */}
           <div className="absolute inset-[-40px] bg-black/70 blur-3xl scale-[2]" />
