@@ -312,8 +312,8 @@ const Home = () => {
               </h2>
             </Link>
             <div className="flex gap-2 justify-end">
-              <img src={cameronPortrait} alt="" className="w-20 h-28 object-cover" />
-              <img src={handsCover} alt="" className="w-20 h-28 object-cover" />
+              <img src={galleryCar1} alt="" className="w-20 h-28 object-cover" />
+              <img src={galleryCar2} alt="" className="w-20 h-28 object-cover" />
             </div>
           </motion.div>
 
