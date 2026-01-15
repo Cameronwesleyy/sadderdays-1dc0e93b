@@ -180,21 +180,6 @@ const MemberCard = ({
       transition={{ duration: 0.6, delay: index * 0.15 }}
       className="flex flex-col w-full max-w-md"
     >
-      {/* Film Strip - TOP */}
-      <div className="bg-black py-2 px-1">
-        <div className="flex gap-1 overflow-x-auto scrollbar-hide">
-          {cycleImages.map((img, i) => (
-            <img 
-              key={i}
-              src={img} 
-              alt={`${member.name} ${i + 1}`} 
-              className="h-16 w-auto object-cover flex-shrink-0 opacity-80 hover:opacity-100 transition-opacity cursor-pointer"
-              onClick={() => onImageClick(cycleImages, i, member.name)}
-            />
-          ))}
-        </div>
-      </div>
-
       {/* Name */}
       <div className="px-6 pt-6 pb-4">
         <img 
