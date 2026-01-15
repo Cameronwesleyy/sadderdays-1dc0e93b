@@ -20,7 +20,6 @@ import galleryCar3 from "@/assets/gallery-car-3.jpg";
 import galleryCameron1 from "@/assets/gallery-cameron-1.jpg";
 
 const galleryImages = [
-  { src: albumHaze, alt: "Album Haze", height: "h-48" },
   { src: galleryGrant1, alt: "Grant", height: "h-64" },
   { src: yinYangCover, alt: "Yin Yang", height: "h-40" },
   { src: galleryCar1, alt: "Car shoot", height: "h-56" },
@@ -140,22 +139,19 @@ const Home = () => {
         </section>
 
         {/* Highlighted Works - with staggered scrollable gallery */}
-        <section className="px-6 md:px-12 py-16">
+        <section className="bg-black px-6 md:px-12 py-16">
           <motion.div initial={{
           opacity: 0
         }} whileInView={{
           opacity: 1
         }} viewport={{
           once: true
-        }} className="mb-8 border-solid border-primary">
+        }} className="mb-8">
             <h2 className="font-display text-4xl md:text-6xl tracking-tighter-custom text-sd-pink">
               VISUAL
-              <br className="" />
+              <br />
               GALLERY
             </h2>
-            <p className="font-display text-2xl md:text-4xl tracking-tighter-custom text-muted-foreground">
-              23-24
-            </p>
           </motion.div>
 
           {/* Staggered scrollable gallery */}
