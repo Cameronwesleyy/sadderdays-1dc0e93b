@@ -18,6 +18,7 @@ import galleryCar1 from "@/assets/gallery-car-1.jpg";
 import galleryCar2 from "@/assets/gallery-car-2.jpg";
 import galleryCar3 from "@/assets/gallery-car-3.jpg";
 import galleryCameron1 from "@/assets/gallery-cameron-1.jpg";
+import tourDuo from "@/assets/tour-duo.jpg";
 
 const galleryImages = [
   { src: galleryGrant1, alt: "Grant", height: "h-64" },
@@ -241,23 +242,25 @@ const Home = () => {
         </section>
 
         {/* The Runway / Tour Section */}
-        <section className="grid md:grid-cols-12 gap-4 p-6 md:p-12 min-h-[70vh]">
-          <motion.div initial={{
-          opacity: 0
-        }} whileInView={{
-          opacity: 1
-        }} viewport={{
-          once: true
-        }} className="md:col-span-4">
-            <h2 className="font-display text-5xl md:text-7xl tracking-tighter-custom mb-6">
-              live
-              <br />
-              shows
-            </h2>
-            <Link to="/tour" className="text-[10px] tracking-widest-custom editorial-link">
-              VIEW TOUR DATES
-            </Link>
-          </motion.div>
+        <section className="p-6 md:p-12">
+          <div className="grid md:grid-cols-12 gap-4 mb-8">
+            <motion.div initial={{
+            opacity: 0
+          }} whileInView={{
+            opacity: 1
+          }} viewport={{
+            once: true
+          }} className="md:col-span-4">
+              <h2 className="font-display text-5xl md:text-7xl tracking-tighter-custom mb-6">
+                live
+                <br />
+                shows
+              </h2>
+              <Link to="/tour" className="text-[10px] tracking-widest-custom editorial-link">
+                VIEW TOUR DATES
+              </Link>
+            </motion.div>
+          </div>
 
           <motion.div initial={{
           opacity: 0,
@@ -267,23 +270,15 @@ const Home = () => {
           y: 0
         }} viewport={{
           once: true
-        }} className="md:col-span-5 md:col-start-5">
-            <img src={duoPortrait} alt="Tour" className="w-full aspect-[4/5] object-cover object-top" />
-          </motion.div>
-
-          <motion.div initial={{
-          opacity: 0
-        }} whileInView={{
-          opacity: 1
-        }} viewport={{
-          once: true
-        }} transition={{
-          delay: 0.2
-        }} className="md:col-span-3 md:self-end space-y-2">
-            <p className="text-[10px] tracking-widest-custom text-muted-foreground">01 — NEW YORK</p>
-            <p className="text-[10px] tracking-widest-custom text-muted-foreground">02 — LOS ANGELES</p>
-            <p className="text-[10px] tracking-widest-custom text-muted-foreground">03 — LONDON</p>
-            <p className="text-[10px] tracking-widest-custom text-muted-foreground">04 — TOKYO</p>
+        }}>
+            <img src={tourDuo} alt="Tour" className="w-full aspect-[16/9] object-cover object-center" />
+            
+            <div className="flex flex-wrap gap-x-8 gap-y-2 mt-6">
+              <p className="text-[10px] tracking-widest-custom text-muted-foreground">01 — NEW YORK</p>
+              <p className="text-[10px] tracking-widest-custom text-muted-foreground">02 — LOS ANGELES</p>
+              <p className="text-[10px] tracking-widest-custom text-muted-foreground">03 — LONDON</p>
+              <p className="text-[10px] tracking-widest-custom text-muted-foreground">04 — TOKYO</p>
+            </div>
           </motion.div>
         </section>
 
