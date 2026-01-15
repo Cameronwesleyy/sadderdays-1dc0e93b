@@ -327,9 +327,7 @@ const Home = () => {
           once: true
         }} className="md:col-span-4 md:col-start-8 md:self-end">
             <Link to="/about" className="block">
-              <h2 className="font-display text-6xl md:text-8xl tracking-tighter-custom text-right mb-4 hover:text-muted-foreground transition-colors">
-                ABOUT
-              </h2>
+              <h2 className="font-display text-6xl md:text-8xl tracking-tighter-custom mb-4 hover:text-muted-foreground transition-colors text-left">ABOUT SADDER DAYS</h2>
             </Link>
             <div className="flex gap-2 justify-end">
               <img src={galleryCar1} alt="" className="w-20 h-28 object-cover" />
