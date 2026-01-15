@@ -330,8 +330,8 @@ const Home = () => {
               <h2 className="font-display text-6xl md:text-8xl tracking-tighter-custom mb-4 hover:text-muted-foreground transition-colors text-left">ABOUT SADDER DAYS</h2>
             </Link>
             <div className="flex gap-2 justify-end">
-              <img src={galleryCar1} alt="" className="w-20 h-28 object-cover" />
-              <img src={galleryCar2} alt="" className="w-20 h-28 object-cover" />
+              
+              
             </div>
           </motion.div>
 
