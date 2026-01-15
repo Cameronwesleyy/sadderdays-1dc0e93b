@@ -66,7 +66,7 @@ const Home = () => {
         }} viewport={{
           once: true
         }} className="md:col-span-4 md:col-start-7">
-            <img alt="Grant" className="w-full aspect-[3/4] object-cover" src="/lovable-uploads/c25da56a-07ab-49f8-9230-c3b55215f540.jpg" />
+            <img alt="Grant" className="w-full aspect-[16/9] object-cover" src="/lovable-uploads/c25da56a-07ab-49f8-9230-c3b55215f540.jpg" />
           </motion.div>
 
           <motion.div initial={{
