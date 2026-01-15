@@ -52,6 +52,25 @@ const CornerNavigation = () => {
         </button>
       </motion.div>
 
+      {/* Cart/Bag Button - Fixed top right */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="fixed top-4 right-6 z-50"
+      >
+        <button
+          onClick={() => setIsOpen(true)}
+          className="relative text-foreground hover:opacity-70 transition-opacity"
+        >
+          <img src={crossLogo} alt="Cart" className="h-10 w-auto invert" />
+          {cartCount > 0 && (
+            <span className="absolute -bottom-1 -right-2 text-[8px] font-medium tracking-widest-custom">
+              {cartCount}
+            </span>
+          )}
+        </button>
+      </motion.div>
+
       {/* Full-screen Menu Overlay */}
       <AnimatePresence>
         {menuOpen && (
@@ -116,24 +135,6 @@ const CornerNavigation = () => {
                 ))}
               </nav>
 
-              {/* Cart Button */}
-              <motion.button
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                onClick={() => {
-                  setMenuOpen(false);
-                  setIsOpen(true);
-                }}
-                className="relative mt-8 text-foreground hover:opacity-70 transition-opacity"
-              >
-                <img src={crossLogo} alt="Cart" className="h-12 w-auto invert" />
-                {cartCount > 0 && (
-                  <span className="absolute -bottom-2 -right-2 text-[10px] font-medium tracking-widest-custom">
-                    {cartCount}
-                  </span>
-                )}
-              </motion.button>
             </div>
           </motion.div>
         )}
