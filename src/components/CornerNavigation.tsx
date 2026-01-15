@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/context/CartContext";
 import { useState } from "react";
 import crossLogo from "@/assets/cross-logo.png";
+import yinyangLogo from "@/assets/yinyang-menu-logo.png";
 
 const CornerNavigation = () => {
   const location = useLocation();
@@ -101,11 +102,9 @@ const CornerNavigation = () => {
               <Link 
                 to="/home" 
                 onClick={() => setMenuOpen(false)}
-                className="editorial-link mb-8"
+                className="mb-8 hover:opacity-70 transition-opacity"
               >
-                <span className="text-xs font-medium tracking-widest-custom text-foreground">
-                  SADDER DAYS
-                </span>
+                <img src={yinyangLogo} alt="Sadder Days" className="h-16 md:h-20 w-auto" />
               </Link>
 
               {/* Navigation Links */}
