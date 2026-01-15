@@ -1,6 +1,6 @@
-import { motion } from "framer-motion";
-import { Instagram, ExternalLink } from "lucide-react";
-import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Instagram, ExternalLink, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState } from "react";
 import PageTransition from "@/components/PageTransition";
 import cameronPortrait from "@/assets/cameron-portrait.jpg";
 import grantPortrait from "@/assets/grant-portrait.jpg";
@@ -8,6 +8,7 @@ import grantEyes from "@/assets/grant-eyes.jpg";
 import cameronEyes from "@/assets/cameron-eyes.jpg";
 import grantTitle from "@/assets/grant-title.png";
 import cameronTitle from "@/assets/cameron-title.png";
+import yinYangLogo from "@/assets/yin-yang-logo.png";
 import cameronCycle1 from "@/assets/cameron-cycle-1.jpg";
 import cameronCycle2 from "@/assets/cameron-cycle-2.jpg";
 import cameronCycle3 from "@/assets/cameron-cycle-3.jpg";
@@ -55,6 +56,7 @@ const members = [
   {
     name: "GRANT",
     titleImage: grantTitle,
+    titleScale: 1,
     role: "Drums / Percussion",
     eyesImage: grantEyes,
     eyesCrop: { position: 13, scale: 4.0 },
@@ -74,6 +76,7 @@ const members = [
   {
     name: "CAMERON",
     titleImage: cameronTitle,
+    titleScale: 1.15,
     role: "Guitar / Production",
     eyesImage: cameronEyes,
     eyesCrop: { position: 6, scale: 4.0 },
@@ -98,14 +101,77 @@ const members = [
   },
 ];
 
+interface GalleryLightboxProps {
+  images: string[];
+  initialIndex: number;
+  memberName: string;
+  onClose: () => void;
+}
+
+const GalleryLightbox = ({ images, initialIndex, memberName, onClose }: GalleryLightboxProps) => {
+  const [currentIndex, setCurrentIndex] = useState(initialIndex);
+
+  const goNext = () => setCurrentIndex((prev) => (prev + 1) % images.length);
+  const goPrev = () => setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
+      onClick={onClose}
+    >
+      <button
+        onClick={onClose}
+        className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors"
+      >
+        <X size={32} />
+      </button>
+      
+      <button
+        onClick={(e) => { e.stopPropagation(); goPrev(); }}
+        className="absolute left-4 md:left-8 text-white/70 hover:text-white transition-colors p-2"
+      >
+        <ChevronLeft size={40} />
+      </button>
+      
+      <motion.img
+        key={currentIndex}
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.2 }}
+        src={images[currentIndex]}
+        alt={`${memberName} ${currentIndex + 1}`}
+        className="max-h-[80vh] max-w-[90vw] object-contain"
+        onClick={(e) => e.stopPropagation()}
+      />
+      
+      <button
+        onClick={(e) => { e.stopPropagation(); goNext(); }}
+        className="absolute right-4 md:right-8 text-white/70 hover:text-white transition-colors p-2"
+      >
+        <ChevronRight size={40} />
+      </button>
+      
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/60 text-sm">
+        {currentIndex + 1} / {images.length}
+      </div>
+    </motion.div>
+  );
+};
+
 const MemberCard = ({ 
   member, 
   index,
+  onImageClick,
 }: { 
   member: typeof members[0]; 
   index: number;
+  onImageClick: (images: string[], startIndex: number, name: string) => void;
 }) => {
   const isCameron = member.name === "CAMERON";
+  const cycleImages = isCameron ? cameronCycleImages : grantCycleImages;
   
   return (
     <motion.div
@@ -117,12 +183,13 @@ const MemberCard = ({
       {/* Film Strip - TOP */}
       <div className="bg-black py-2 px-1">
         <div className="flex gap-1 overflow-x-auto scrollbar-hide">
-          {(isCameron ? cameronCycleImages : grantCycleImages).map((img, i) => (
+          {cycleImages.map((img, i) => (
             <img 
               key={i}
               src={img} 
               alt={`${member.name} ${i + 1}`} 
               className="h-16 w-auto object-cover flex-shrink-0 opacity-80 hover:opacity-100 transition-opacity cursor-pointer"
+              onClick={() => onImageClick(cycleImages, i, member.name)}
             />
           ))}
         </div>
@@ -134,7 +201,11 @@ const MemberCard = ({
           src={member.titleImage} 
           alt={member.name}
           className="w-full h-auto"
-          style={{ minHeight: '80px' }}
+          style={{ 
+            minHeight: '80px',
+            transform: `scale(${member.titleScale})`,
+            transformOrigin: 'left center'
+          }}
         />
       </div>
 
@@ -212,7 +283,7 @@ const MemberCard = ({
         </p>
       </div>
 
-      {/* Eyes Close-up Image - BOTTOM */}
+      {/* Eyes Close-up Image */}
       <div className="relative h-28 overflow-hidden bg-black">
         <img
           src={member.eyesImage}
@@ -225,12 +296,28 @@ const MemberCard = ({
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
       </div>
+
+      {/* Film Strip - BOTTOM */}
+      <div className="bg-black py-2 px-1">
+        <div className="flex gap-1 overflow-x-auto scrollbar-hide">
+          {cycleImages.map((img, i) => (
+            <img 
+              key={i}
+              src={img} 
+              alt={`${member.name} ${i + 1}`} 
+              className="h-16 w-auto object-cover flex-shrink-0 opacity-80 hover:opacity-100 transition-opacity cursor-pointer"
+              onClick={() => onImageClick(cycleImages, i, member.name)}
+            />
+          ))}
+        </div>
+      </div>
     </motion.div>
   );
 };
 
 const Members = () => {
   const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
+  const [lightbox, setLightbox] = useState<{ images: string[]; index: number; name: string } | null>(null);
 
   const handleMouseMove = (e: React.MouseEvent) => {
     const x = e.clientX / window.innerWidth;
@@ -238,10 +325,14 @@ const Members = () => {
     setMousePos({ x, y });
   };
 
+  const openLightbox = (images: string[], startIndex: number, name: string) => {
+    setLightbox({ images, index: startIndex, name });
+  };
+
   return (
     <PageTransition>
       <div 
-        className="min-h-screen flex flex-col items-center justify-center px-4 py-8 relative"
+        className="min-h-screen flex flex-col items-center px-4 py-8 relative"
         style={{
           backgroundColor: '#1a1a1a',
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E")`,
@@ -256,6 +347,15 @@ const Members = () => {
           }}
         />
 
+        {/* Yin Yang Logo - TOP CENTER */}
+        <div className="mb-12 mt-4 relative z-10">
+          <img 
+            src={yinYangLogo} 
+            alt="Sadder Days" 
+            className="w-20 h-20 md:w-24 md:h-24 object-contain opacity-80"
+          />
+        </div>
+
         {/* Side by side centered layout */}
         <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-stretch justify-center w-full max-w-4xl relative z-10">
           {members.map((member, index) => (
@@ -263,10 +363,23 @@ const Members = () => {
               key={member.name} 
               member={member} 
               index={index}
+              onImageClick={openLightbox}
             />
           ))}
         </div>
       </div>
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {lightbox && (
+          <GalleryLightbox
+            images={lightbox.images}
+            initialIndex={lightbox.index}
+            memberName={lightbox.name}
+            onClose={() => setLightbox(null)}
+          />
+        )}
+      </AnimatePresence>
     </PageTransition>
   );
 };
