@@ -5,6 +5,7 @@ import PageTransition from "@/components/PageTransition";
 import cameronPortrait from "@/assets/cameron-portrait.jpg"; // Long hair - Cameron
 import grantPortrait from "@/assets/grant-portrait.jpg"; // Other person - Grant
 import grantEyes from "@/assets/grant-eyes.jpg";
+import cameronEyes from "@/assets/cameron-eyes.jpg";
 import grantTitle from "@/assets/grant-title.png";
 import cameronTitle from "@/assets/cameron-title.png";
 import { Slider } from "@/components/ui/slider";
@@ -44,7 +45,7 @@ const members = [
     name: "CAMERON",
     titleImage: cameronTitle,
     role: "Guitar / Production",
-    eyesImage: grantPortrait,
+    eyesImage: cameronEyes,
     favoriteColor: "Forest Green",
     personality: "INFP-A",
     birthday: "08/08/2002",
