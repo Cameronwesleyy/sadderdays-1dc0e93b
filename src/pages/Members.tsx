@@ -24,7 +24,7 @@ const members = [
     name: "GRANT",
     titleImage: grantTitle,
     role: "Drums / Percussion",
-    eyesImage: grantPortrait,
+    eyesImage: cameronPortrait,
     favoriteColor: "Celestine Blue",
     personality: "ENFJ-A",
     birthday: "06/12/2003",
@@ -42,7 +42,7 @@ const members = [
     name: "CAMERON",
     titleImage: cameronTitle,
     role: "Guitar / Production",
-    eyesImage: cameronPortrait,
+    eyesImage: grantPortrait,
     favoriteColor: "Forest Green",
     personality: "INFP-A",
     birthday: "08/08/2002",
@@ -159,9 +159,9 @@ const MemberCard = ({ member, index }: { member: typeof members[0]; index: numbe
           alt={`${member.name}`}
           className="w-full object-cover"
           style={{ 
-            height: '200%',
-            objectPosition: index === 0 ? 'center 32%' : 'center 35%',
-            transform: 'scale(1.2)'
+            height: '250%',
+            objectPosition: index === 0 ? 'center 28%' : 'center 30%',
+            transform: 'scale(1.3)'
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
