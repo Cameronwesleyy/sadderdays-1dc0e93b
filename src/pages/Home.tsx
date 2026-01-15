@@ -234,7 +234,7 @@ const Home = () => {
           once: true
         }} className="md:col-span-4 md:col-start-8 md:self-end">
             <Link to="/about" className="block">
-              <h2 className="font-display text-6xl md:text-8xl tracking-tighter-custom mb-4 hover:text-muted-foreground transition-colors text-left">ABOUT SADDER DAYS</h2>
+              <h2 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-8xl tracking-tighter-custom mb-4 hover:text-muted-foreground transition-colors text-left">ABOUT SADDER DAYS</h2>
             </Link>
           </motion.div>
 
