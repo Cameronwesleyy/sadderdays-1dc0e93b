@@ -316,7 +316,7 @@ const Home = () => {
         }} viewport={{
           once: true
         }} className="md:col-span-5">
-            <img src={napkin} alt="I've Had Sadder Days" className="w-full aspect-[3/4] object-contain" />
+            <img src={napkin} alt="I've Had Sadder Days" className="w-full max-w-2xl aspect-[3/4] object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.3)]" />
           </motion.div>
 
           <motion.div initial={{
