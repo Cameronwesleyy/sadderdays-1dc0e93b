@@ -116,20 +116,34 @@ const CornerNavigation = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.05 }}
                   >
-                    <Link
-                      to={link.path}
-                      onClick={() => setMenuOpen(false)}
-                      className={`text-2xl md:text-4xl font-display tracking-tighter-custom transition-all duration-200 hover:scale-105 ${
-                        location.pathname === link.path
-                          ? "text-foreground"
-                          : "text-foreground/70 hover:text-foreground"
-                      }`}
-                      style={{ 
-                        textShadow: location.pathname === link.path ? "0 0 20px rgba(255, 235, 245, 0.8)" : "none"
-                      }}
-                    >
-                      {link.name}
-                    </Link>
+                    {link.name === "SHOP" ? (
+                      <div className="relative text-center">
+                        <span className="text-2xl md:text-4xl font-display tracking-tighter-custom text-foreground/70 line-through decoration-2">
+                          {link.name}
+                        </span>
+                        <span 
+                          className="absolute left-1/2 -translate-x-1/2 top-full text-[10px] md:text-xs tracking-widest-custom whitespace-nowrap mt-1"
+                          style={{ color: "#FFEBF5" }}
+                        >
+                          FEB 2026
+                        </span>
+                      </div>
+                    ) : (
+                      <Link
+                        to={link.path}
+                        onClick={() => setMenuOpen(false)}
+                        className={`text-2xl md:text-4xl font-display tracking-tighter-custom transition-all duration-200 hover:scale-105 ${
+                          location.pathname === link.path
+                            ? "text-foreground"
+                            : "text-foreground/70 hover:text-foreground"
+                        }`}
+                        style={{ 
+                          textShadow: location.pathname === link.path ? "0 0 20px rgba(255, 235, 245, 0.8)" : "none"
+                        }}
+                      >
+                        {link.name}
+                      </Link>
+                    )}
                   </motion.div>
                 ))}
               </nav>
