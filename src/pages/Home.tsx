@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PageTransition from "@/components/PageTransition";
 import { useCart } from "@/context/CartContext";
+import EmailSignupPopup from "@/components/EmailSignupPopup";
 import crossLogo from "@/assets/cross-logo.png";
 import heroCar from "@/assets/hero-car.jpg";
 import duoPortrait from "@/assets/duo-portrait.jpg";
@@ -72,9 +73,22 @@ const navLinks = [
 
 const Home = () => {
   const [isHeroHovered, setIsHeroHovered] = useState(false);
+  const [showEmailPopup, setShowEmailPopup] = useState(false);
   const { items, setIsOpen } = useCart();
   const cartCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
+  // Show email popup after 20 seconds
+  useEffect(() => {
+    const hasSeenPopup = sessionStorage.getItem("hasSeenEmailPopup");
+    if (hasSeenPopup) return;
+
+    const timer = setTimeout(() => {
+      setShowEmailPopup(true);
+      sessionStorage.setItem("hasSeenEmailPopup", "true");
+    }, 20000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return <PageTransition>
       <div className="min-h-screen">
@@ -420,6 +434,12 @@ const Home = () => {
           </div>
         </section>
       </div>
+
+      {/* Email Signup Popup */}
+      <EmailSignupPopup 
+        isOpen={showEmailPopup} 
+        onClose={() => setShowEmailPopup(false)} 
+      />
     </PageTransition>;
 };
 export default Home;
