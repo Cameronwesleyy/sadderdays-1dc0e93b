@@ -18,13 +18,8 @@ const Footer = () => {
 
   return (
     <footer>
-      {/* Booking Section - Dark grey with gradient to pink */}
-      <section 
-        className="text-background p-6 md:p-12"
-        style={{
-          background: "linear-gradient(to bottom, #1a1a1a 0%, #1a1a1a 50%, #2a2a2a 65%, #4a3a42 75%, #8a6a78 85%, #d4a8bc 92%, #FFEBF5 100%)"
-        }}
-      >
+      {/* Booking Section - Black */}
+      <section className="bg-foreground text-background p-6 md:p-12">
         <div className="grid md:grid-cols-12 gap-8 mb-12">
           <div className="md:col-span-4">
             <h2 className="font-display text-4xl md:text-5xl tracking-tighter-custom mb-8">
@@ -74,16 +69,13 @@ const Footer = () => {
         </div>
       </section>
 
-      {/* Newsletter & Social Section - Pink background */}
-      <div 
-        className="border-t border-foreground/10"
-        style={{ backgroundColor: "#FFEBF5" }}
-      >
+      {/* Newsletter & Social Section - White background */}
+      <div className="border-t border-border/30 bg-background">
         <div className="container mx-auto px-6 py-16">
           <div className="grid md:grid-cols-2 gap-12">
             {/* Newsletter */}
             <div>
-              <h3 className="text-xs tracking-widest-custom text-foreground/60 mb-4">
+              <h3 className="text-xs tracking-widest-custom text-muted-foreground mb-4">
                 PRE-SAVE & UPDATES
               </h3>
               {isSubmitted ? (
@@ -101,13 +93,13 @@ const Footer = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email"
-                    className="flex-1 bg-transparent border-b border-foreground/30 py-2 text-sm text-foreground placeholder:text-foreground/50 focus:outline-none focus:border-foreground transition-colors"
+                    className="flex-1 bg-transparent border-b border-border/50 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:border-foreground transition-colors"
                   />
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     type="submit"
-                    className="text-xs tracking-widest-custom px-4 py-2 border border-foreground/30 text-foreground hover:bg-foreground hover:text-background transition-colors"
+                    className="text-xs tracking-widest-custom px-4 py-2 border border-foreground/20 hover:bg-foreground hover:text-background transition-colors"
                   >
                     SUBSCRIBE
                   </motion.button>
@@ -127,7 +119,7 @@ const Footer = () => {
                     key={index}
                     href={href}
                     whileHover={{ y: -2 }}
-                    className="p-2 border border-foreground/30 text-foreground hover:border-foreground/60 transition-colors"
+                    className="p-2 border border-border/30 hover:border-foreground/50 transition-colors"
                   >
                     <Icon size={16} />
                   </motion.a>
@@ -136,11 +128,11 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="mt-16 pt-8 border-t border-foreground/20 flex flex-col items-center gap-2">
-            <p className="text-xs text-foreground/70">
+          <div className="mt-16 pt-8 border-t border-border/20 flex flex-col items-center gap-2">
+            <p className="text-xs text-muted-foreground">
               © 2025 SADDER DAYS. ALL RIGHTS RESERVED.
             </p>
-            <p className="text-xs text-foreground/70 tracking-widest-custom">
+            <p className="text-xs text-muted-foreground tracking-widest-custom">
               WEBSITE DESIGN + CONFIGURATION BY{" "}
               <a 
                 href="https://rainabhatia.com" 
