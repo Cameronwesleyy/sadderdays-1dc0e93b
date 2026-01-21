@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import PageTransition from "@/components/PageTransition";
 import { useCart } from "@/context/CartContext";
 import crossLogo from "@/assets/cross-logo.png";
@@ -10,12 +10,7 @@ import grantPortrait from "@/assets/grant-portrait.jpg";
 import cameronPortrait from "@/assets/cameron-portrait.jpg";
 import handsCover from "@/assets/hands-cover.jpg";
 import napkin from "@/assets/napkin.png";
-import merch01 from "@/assets/merch-01.jpg";
-import merch02 from "@/assets/merch-02.jpg";
-import merch03 from "@/assets/merch-03.jpg";
-import merch04 from "@/assets/merch-04.jpg";
-import merch05 from "@/assets/merch-05.jpg";
-import merch06 from "@/assets/merch-06.jpg";
+import apparelMain from "@/assets/apparel-main.png";
 import albumHaze from "@/assets/album-haze.jpg";
 import yinYangCover from "@/assets/yin-yang-cover.jpg";
 import galleryGrant1 from "@/assets/gallery-grant-1.jpg";
@@ -26,7 +21,7 @@ import galleryCar3 from "@/assets/gallery-car-3.jpg";
 import galleryCameron1 from "@/assets/gallery-cameron-1.jpg";
 import tourDuo from "@/assets/tour-duo.jpg";
 
-const merchImages = [merch01, merch02, merch03, merch04, merch05, merch06];
+
 const galleryImages = [{
   src: galleryGrant1,
   alt: "Grant",
@@ -67,10 +62,6 @@ const galleryImages = [{
   src: cameronPortrait,
   alt: "Cameron Portrait",
   height: "h-64"
-}, {
-  src: merch01,
-  alt: "Merch",
-  height: "h-40"
 }];
 const navLinks = [
   { name: "ABOUT", path: "/about" },
@@ -80,17 +71,10 @@ const navLinks = [
 ];
 
 const Home = () => {
-  const [currentMerchIndex, setCurrentMerchIndex] = useState(0);
   const [isHeroHovered, setIsHeroHovered] = useState(false);
   const { items, setIsOpen } = useCart();
   const cartCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentMerchIndex((prev) => (prev + 1) % merchImages.length);
-    }, 150);
-    return () => clearInterval(interval);
-  }, []);
 
   return <PageTransition>
       <div className="min-h-screen">
@@ -249,8 +233,8 @@ const Home = () => {
           once: true
         }} className="md:col-span-4 md:col-start-6">
             <img 
-              src={merchImages[currentMerchIndex]} 
-              alt="Merch" 
+              src={apparelMain} 
+              alt="Apparel" 
               className="w-full max-w-md aspect-square object-cover" 
             />
           </motion.div>
