@@ -132,14 +132,17 @@ const Footer = () => {
             <p className="text-xs text-muted-foreground">
               © 2025 SADDER DAYS. ALL RIGHTS RESERVED.
             </p>
-            <a 
-              href="https://rainabhatia.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-[10px] text-muted-foreground/70 hover:text-foreground transition-colors"
-            >
-              @RAINABHATIA
-            </a>
+            <p className="text-[10px] text-muted-foreground/70">
+              WEBSITE DESIGN BY{" "}
+              <a 
+                href="https://rainabhatia.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="hover:text-foreground transition-colors"
+              >
+                @RAINABHATIA
+              </a>
+            </p>
           </div>
         </div>
       </div>
