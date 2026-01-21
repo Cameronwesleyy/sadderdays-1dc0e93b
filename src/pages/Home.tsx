@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import PageTransition from "@/components/PageTransition";
+import Footer from "@/components/Footer";
 import { useCart } from "@/context/CartContext";
 import EmailSignupPopup from "@/components/EmailSignupPopup";
 import PixelatedImage from "@/components/PixelatedImage";
@@ -465,29 +466,7 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Booking / Footer Section */}
-        <section className="bg-foreground text-background p-6 md:p-12">
-          <div className="grid md:grid-cols-12 gap-8">
-            <div className="md:col-span-4">
-              <h2 className="font-display text-4xl md:text-5xl tracking-tighter-custom mb-8">
-                BOOKING
-              </h2>
-            </div>
-            <div className="md:col-span-4">
-              <p className="text-[10px] tracking-widest-custom text-background/50 mb-2">
-                REPRESENTATION
-              </p>
-              <p className="text-sm mb-4">SADDER DAYS MGMT</p>
-              <p className="text-sm text-background/70">hello@sadderdays.world</p>
-            </div>
-            <div className="md:col-span-4">
-              <p className="text-[10px] tracking-widest-custom text-background/50 mb-2">
-                PROJECT & DIRECT INQUIRIES
-              </p>
-              <p className="text-sm">booking@sadderdays.world</p>
-            </div>
-          </div>
-        </section>
+        <Footer />
       </div>
 
       {/* Email Signup Popup */}

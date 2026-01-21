@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Instagram, Twitter, Youtube } from "lucide-react";
 import yinyangLogo from "@/assets/yinyang-menu-logo.png";
@@ -120,11 +121,16 @@ const Footer = () => {
             <p className="text-xs text-muted-foreground tracking-widest-custom">
               SADDERDAYS.WORLD
             </p>
-            <img 
-              src={yinyangLogo} 
-              alt="Sadder Days" 
-              className="absolute bottom-0 right-0 h-8 w-auto opacity-60"
-            />
+            <Link 
+              to="/home"
+              className="absolute bottom-0 right-0 hover:opacity-100 transition-opacity"
+            >
+              <img 
+                src={yinyangLogo} 
+                alt="Sadder Days" 
+                className="h-8 w-auto opacity-60 hover:opacity-100 transition-opacity"
+              />
+            </Link>
           </div>
         </div>
       </div>
