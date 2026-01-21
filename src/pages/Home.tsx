@@ -301,7 +301,7 @@ const Home = () => {
           >
             {/* Left side - Title and CTA */}
             <div className="text-left">
-              <h2 className="font-display text-5xl md:text-7xl tracking-tighter-custom mb-4">APPAREL</h2>
+              <h2 className="font-display text-5xl md:text-7xl tracking-tighter-custom mb-4">SHOP SADDER DAYS</h2>
               <div className="flex items-center gap-6">
                 <span className="inline-flex items-center gap-2 text-xs font-medium tracking-widest-custom text-foreground">
                   COMING SOON
