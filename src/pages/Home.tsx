@@ -13,6 +13,8 @@ import cameronPortrait from "@/assets/cameron-portrait.jpg";
 import handsCover from "@/assets/hands-cover.jpg";
 import napkin from "@/assets/napkin.png";
 import apparelMain from "@/assets/apparel-main.jpg";
+import apparel02 from "@/assets/apparel-02.png";
+import apparel03 from "@/assets/apparel-03.png";
 import albumHaze from "@/assets/album-haze.jpg";
 import yinYangCover from "@/assets/yin-yang-cover.jpg";
 import galleryGrant1 from "@/assets/gallery-grant-1.jpg";
@@ -248,17 +250,29 @@ const Home = () => {
 
         {/* Apparel Section */}
         <section className="p-6 md:p-12">
-          {/* Image */}
+          {/* Images */}
           <motion.div 
             initial={{ opacity: 0 }} 
             whileInView={{ opacity: 1 }} 
             viewport={{ once: true }}
-            className="max-w-sm mb-8"
+            className="flex gap-2 mb-8"
           >
             <PixelatedImage 
               src={apparelMain} 
               alt="Apparel" 
-              className="w-full aspect-square"
+              className="w-48 md:w-56 aspect-square"
+              pixelSize={8}
+            />
+            <PixelatedImage 
+              src={apparel02} 
+              alt="Apparel" 
+              className="w-48 md:w-56 aspect-square"
+              pixelSize={8}
+            />
+            <PixelatedImage 
+              src={apparel03} 
+              alt="Apparel" 
+              className="w-48 md:w-56 aspect-square"
               pixelSize={8}
             />
           </motion.div>
