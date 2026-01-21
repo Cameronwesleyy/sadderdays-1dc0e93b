@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import PageTransition from "@/components/PageTransition";
+import { useCart } from "@/context/CartContext";
+import crossLogo from "@/assets/cross-logo.png";
 import heroCar from "@/assets/hero-car.jpg";
 import duoPortrait from "@/assets/duo-portrait.jpg";
 import grantPortrait from "@/assets/grant-portrait.jpg";
@@ -70,9 +72,18 @@ const galleryImages = [{
   alt: "Merch",
   height: "h-40"
 }];
+const navLinks = [
+  { name: "ABOUT", path: "/about" },
+  { name: "SHOP", path: "/merch" },
+  { name: "MUSIC", path: "/music" },
+  { name: "TOUR", path: "/tour" },
+];
+
 const Home = () => {
   const [currentMerchIndex, setCurrentMerchIndex] = useState(0);
   const [isHeroHovered, setIsHeroHovered] = useState(false);
+  const { items, setIsOpen } = useCart();
+  const cartCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -83,6 +94,40 @@ const Home = () => {
 
   return <PageTransition>
       <div className="min-h-screen">
+        {/* Inline Top Navigation - Editorial Style */}
+        <motion.nav 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4"
+        >
+          {/* Left nav links */}
+          <div className="flex items-center gap-4 md:gap-6">
+            {navLinks.map((link) => (
+              <Link
+                key={link.path}
+                to={link.path}
+                className="text-[9px] md:text-[10px] tracking-widest-custom text-white/80 hover:text-white transition-colors drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]"
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
+
+          {/* Right - Cart button */}
+          <button
+            onClick={() => setIsOpen(true)}
+            className="relative text-white hover:opacity-70 transition-opacity"
+          >
+            <img src={crossLogo} alt="Cart" className="h-10 md:h-[50px] w-auto drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]" />
+            {cartCount > 0 && (
+              <span className="absolute -bottom-1 -right-2 text-[8px] font-medium tracking-widest-custom text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]">
+                {cartCount}
+              </span>
+            )}
+          </button>
+        </motion.nav>
+
         {/* Hero Section - Full bleed image with overlapping text */}
         <section 
           className="relative h-screen"
@@ -90,8 +135,19 @@ const Home = () => {
           onMouseLeave={() => setIsHeroHovered(false)}
         >
           <img src={heroCar} alt="Sadder Days" className="w-full h-full object-cover" />
+          
+          {/* Bottom caption */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="absolute bottom-4 right-6 text-[9px] md:text-[10px] tracking-widest-custom text-white/70 drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]"
+          >
+            CAMERON AND GRANT, NYC 2026
+          </motion.p>
+          
           {/* Dark gradient overlay for text visibility */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none" />
           <motion.div initial={{
           opacity: 0,
           y: 40

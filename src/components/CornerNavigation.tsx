@@ -11,8 +11,8 @@ const CornerNavigation = () => {
   const cartCount = items.reduce((sum, item) => sum + item.quantity, 0);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Hide on Enter page
-  if (location.pathname === "/") {
+  // Hide on Enter page and Home page
+  if (location.pathname === "/" || location.pathname === "/home") {
     return null;
   }
 
