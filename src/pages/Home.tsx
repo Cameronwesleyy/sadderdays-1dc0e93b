@@ -13,6 +13,8 @@ import cameronPortrait from "@/assets/cameron-portrait.jpg";
 import handsCover from "@/assets/hands-cover.jpg";
 import napkin from "@/assets/napkin.png";
 import apparelMain from "@/assets/apparel-main.jpg";
+import apparel02 from "@/assets/apparel-02.png";
+import apparel03 from "@/assets/apparel-03.png";
 import albumHaze from "@/assets/album-haze.jpg";
 import yinYangCover from "@/assets/yin-yang-cover.jpg";
 import galleryGrant1 from "@/assets/gallery-grant-1.jpg";
