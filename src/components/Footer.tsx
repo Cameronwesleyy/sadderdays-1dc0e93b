@@ -20,7 +20,7 @@ const Footer = () => {
     <footer>
       {/* Booking Section */}
       <section className="bg-foreground text-background p-6 md:p-12">
-        <div className="grid md:grid-cols-12 gap-8">
+        <div className="grid md:grid-cols-12 gap-8 mb-12">
           <div className="md:col-span-4">
             <h2 className="font-display text-4xl md:text-5xl tracking-tighter-custom mb-8">
               BOOKING
@@ -49,6 +49,23 @@ const Footer = () => {
               booking@sadderdays.world
             </a>
           </div>
+        </div>
+        
+        {/* Sadderdays.world + Yin Yang in black section */}
+        <div className="flex flex-col items-center pt-8 border-t border-background/20">
+          <p className="text-xs text-background tracking-widest-custom mb-4">
+            SADDERDAYS.WORLD
+          </p>
+          <Link 
+            to="/home"
+            className="hover:opacity-80 transition-opacity"
+          >
+            <img 
+              src={yinyangLogo} 
+              alt="Sadder Days" 
+              className="h-16 md:h-20 w-auto invert"
+            />
+          </Link>
         </div>
       </section>
 
@@ -90,11 +107,8 @@ const Footer = () => {
               )}
             </div>
 
-            {/* Social */}
+            {/* Social Icons */}
             <div className="flex flex-col items-start md:items-end gap-4">
-              <h3 className="text-xs tracking-widest-custom text-muted-foreground">
-                FOLLOW THE FOG
-              </h3>
               <div className="flex gap-4">
                 {[
                   { icon: Instagram, href: "#" },
@@ -114,23 +128,21 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="mt-16 pt-8 border-t border-border/20 flex flex-col md:flex-row justify-between items-center gap-4 relative">
+          <div className="mt-16 pt-8 border-t border-border/20 flex flex-col items-center gap-2">
             <p className="text-xs text-muted-foreground">
               © 2025 SADDER DAYS. ALL RIGHTS RESERVED.
             </p>
-            <p className="text-xs text-muted-foreground tracking-widest-custom">
-              SADDERDAYS.WORLD
+            <p className="text-xs text-muted-foreground">
+              website design + configuration by{" "}
+              <a 
+                href="https://rainabhatia.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="hover:text-foreground transition-colors hover:underline underline-offset-4"
+              >
+                raina bhatia
+              </a>
             </p>
-            <Link 
-              to="/home"
-              className="absolute bottom-0 right-0 hover:opacity-100 transition-opacity"
-            >
-              <img 
-                src={yinyangLogo} 
-                alt="Sadder Days" 
-                className="h-8 w-auto opacity-60 hover:opacity-100 transition-opacity"
-              />
-            </Link>
           </div>
         </div>
       </div>
