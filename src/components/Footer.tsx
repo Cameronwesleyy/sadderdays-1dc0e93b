@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Instagram, Twitter, Youtube } from "lucide-react";
+import yinyangLogo from "@/assets/yinyang-menu-logo.png";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
@@ -76,13 +77,18 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-16 pt-8 border-t border-border/20 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="mt-16 pt-8 border-t border-border/20 flex flex-col md:flex-row justify-between items-center gap-4 relative">
           <p className="text-xs text-muted-foreground">
             © 2025 SADDER DAYS. ALL RIGHTS RESERVED.
           </p>
           <p className="text-xs text-muted-foreground tracking-widest-custom">
             SADDERDAYS.WORLD
           </p>
+          <img 
+            src={yinyangLogo} 
+            alt="Sadder Days" 
+            className="absolute bottom-0 right-0 h-8 w-auto opacity-60"
+          />
         </div>
       </div>
     </footer>
