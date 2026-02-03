@@ -49,7 +49,7 @@ const CornerNavigation = () => {
           
           <button
             onClick={() => setMenuOpen(true)}
-            className="text-[10px] font-medium tracking-widest-custom text-foreground drop-shadow-[0_1px_2px_rgba(255,255,255,0.8)] hover:opacity-70 transition-opacity"
+            className="text-[10px] font-semibold tracking-widest-custom text-foreground drop-shadow-[0_1px_2px_rgba(255,255,255,0.8)] hover:opacity-70 transition-opacity"
           >
             MENU
           </button>
@@ -112,7 +112,7 @@ const CornerNavigation = () => {
                   ease: [0.25, 0.46, 0.45, 0.94] 
                 }}
                 onClick={() => setMenuOpen(false)}
-                className="text-[10px] font-medium tracking-widest-custom text-foreground hover:opacity-70 transition-opacity mb-4"
+                className="text-[10px] font-semibold tracking-widest-custom text-foreground hover:opacity-70 transition-opacity mb-4"
               >
                 CLOSE
               </motion.button>
