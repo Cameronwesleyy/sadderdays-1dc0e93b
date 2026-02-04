@@ -1,45 +1,73 @@
-# Sadder Days – Website
+# Welcome to your Lovable project
 
-This repository contains the official Sadder Days website, built as a custom React application using Vite and Tailwind CSS. The site includes a designed shop interface and a Supabase backend for mailing list subscriptions and admin access.
+## Project info
 
-## 🛠 Tech Stack
-- **Frontend:** React + Vite
-- **Styling:** Tailwind CSS
-- **Backend:** Supabase (Auth + Database)
-- **Deployment:** Vercel (recommended)
+**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
 
-## 🌐 Deployment & Domain
-The domain is managed externally. To publish the site:
-1. Connect this repository to a hosting platform such as **Vercel**.
-2. Add the domain in the hosting platform dashboard.
-3. Update DNS records (A and CNAME) at the domain registrar to point to the deployment.
+## How can I edit this code?
 
-## 🔐 Backend & Security (Supabase)
-Supabase is used to manage email subscriptions and admin permissions.
+There are several ways of editing your application.
 
-### Role-Based Access
-- Admin permissions are managed via the `user_roles` table.
-- To grant admin access, insert a row with:
-  - `user_id` (from `auth.users`)
-  - `app_role` set to `'admin'`
+**Use Lovable**
 
-### Row Level Security (RLS)
-- RLS is enabled across tables.
-- The `email_subscribers` table allows public `INSERT` so visitors can sign up without authentication.
-- Admin-only access is required for viewing or deleting subscriber data.
+Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
 
-## 🛒 Shopify Integration
-The Shop page is a custom-designed React interface prepared for Shopify integration.
+Changes made via Lovable will be committed automatically to this repo.
 
-### Required Environment Variables
-These must be added in the hosting platform (e.g. Vercel):
-- `VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN`
-- `VITE_SHOPIFY_STORE_DOMAIN`
+**Use your preferred IDE**
 
-Once connected, placeholder products can be replaced with live Shopify data or direct product links.
+If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
 
-## 🧑‍💻 Local Development
-For future development:
-```bash
-npm install
+The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+
+Follow these steps:
+
+```sh
+# Step 1: Clone the repository using the project's Git URL.
+git clone <YOUR_GIT_URL>
+
+# Step 2: Navigate to the project directory.
+cd <YOUR_PROJECT_NAME>
+
+# Step 3: Install the necessary dependencies.
+npm i
+
+# Step 4: Start the development server with auto-reloading and an instant preview.
 npm run dev
+```
+
+**Edit a file directly in GitHub**
+
+- Navigate to the desired file(s).
+- Click the "Edit" button (pencil icon) at the top right of the file view.
+- Make your changes and commit the changes.
+
+**Use GitHub Codespaces**
+
+- Navigate to the main page of your repository.
+- Click on the "Code" button (green button) near the top right.
+- Select the "Codespaces" tab.
+- Click on "New codespace" to launch a new Codespace environment.
+- Edit files directly within the Codespace and commit and push your changes once you're done.
+
+## What technologies are used for this project?
+
+This project is built with:
+
+- Vite
+- TypeScript
+- React
+- shadcn-ui
+- Tailwind CSS
+
+## How can I deploy this project?
+
+Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+
+## Can I connect a custom domain to my Lovable project?
+
+Yes, you can!
+
+To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+
+Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
