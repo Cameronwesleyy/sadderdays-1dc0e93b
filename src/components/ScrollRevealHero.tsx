@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
-import { useIsMobile } from "@/hooks/use-mobile";
+
+const TABLET_BREAKPOINT = 1024;
 
 interface ScrollRevealHeroProps {
   imageSrc: string;
@@ -10,7 +11,17 @@ interface ScrollRevealHeroProps {
 }
 
 const ScrollRevealHero = ({ imageSrc, imageAlt, children, onHoverChange }: ScrollRevealHeroProps) => {
-  const isMobile = useIsMobile();
+  const [isMobileOrTablet, setIsMobileOrTablet] = useState<boolean | undefined>(undefined);
+  
+  useEffect(() => {
+    const mql = window.matchMedia(`(max-width: ${TABLET_BREAKPOINT - 1}px)`);
+    const onChange = () => {
+      setIsMobileOrTablet(window.innerWidth < TABLET_BREAKPOINT);
+    };
+    mql.addEventListener("change", onChange);
+    setIsMobileOrTablet(window.innerWidth < TABLET_BREAKPOINT);
+    return () => mql.removeEventListener("change", onChange);
+  }, []);
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -36,7 +47,7 @@ const ScrollRevealHero = ({ imageSrc, imageAlt, children, onHoverChange }: Scrol
   
   const imageY = useTransform(scrollY, [0, scrollRange], [0, -scrollRange]);
 
-  if (isMobile) {
+  if (isMobileOrTablet) {
     // Mobile: Show full image at natural aspect ratio, pushing content below
     return (
       <section 
