@@ -6,6 +6,48 @@ import { toast } from "@/hooks/use-toast";
 import ImageDropZone from "@/components/admin/ImageDropZone";
 import GalleryEditor from "@/components/admin/GalleryEditor";
 
+// Default assets for pre-populating galleries
+import cameronCycle1 from "@/assets/cameron-cycle-1.jpg";
+import cameronCycle2 from "@/assets/cameron-cycle-2.jpg";
+import cameronCycle3 from "@/assets/cameron-cycle-3.jpg";
+import cameronCycle4 from "@/assets/cameron-cycle-4.jpg";
+import cameronCycle5 from "@/assets/cameron-cycle-5.jpg";
+import cameronCycle6 from "@/assets/cameron-cycle-6.jpg";
+import cameronCycle7 from "@/assets/cameron-cycle-7.jpg";
+import cameronCycle8 from "@/assets/cameron-cycle-8.jpg";
+import cameronCycle9 from "@/assets/cameron-cycle-9.jpg";
+import cameronCycle10 from "@/assets/cameron-cycle-10.jpg";
+import grantCycle1 from "@/assets/grant-cycle-1.jpg";
+import grantCycle2 from "@/assets/grant-cycle-2.jpg";
+import grantCycle3 from "@/assets/grant-cycle-3.jpg";
+import grantCycle4 from "@/assets/grant-cycle-4.jpg";
+import grantCycle5 from "@/assets/grant-cycle-5.jpg";
+import grantCycle6 from "@/assets/grant-cycle-6.jpg";
+import grantCycle7 from "@/assets/grant-cycle-7.jpg";
+import grantCycle8 from "@/assets/grant-cycle-8.jpg";
+import grantCycle9 from "@/assets/grant-cycle-9.jpg";
+import grantCycle10 from "@/assets/grant-cycle-10.jpg";
+import aboutRotate1 from "@/assets/about-rotate-1.jpg";
+import aboutRotate2 from "@/assets/about-rotate-2.jpg";
+import aboutRotate3 from "@/assets/about-rotate-3.jpg";
+import aboutRotate4 from "@/assets/about-rotate-4.jpg";
+import galleryGrant1 from "@/assets/gallery-grant-1.jpg";
+import galleryGrant2 from "@/assets/gallery-grant-2.jpg";
+import galleryCar1 from "@/assets/gallery-car-1.jpg";
+import galleryCar2 from "@/assets/gallery-car-2.jpg";
+import galleryCar3 from "@/assets/gallery-car-3.jpg";
+import galleryCameron1 from "@/assets/gallery-cameron-1.jpg";
+import handsCover from "@/assets/hands-cover.jpg";
+import yinYangCover from "@/assets/yin-yang-cover.jpg";
+import grantPortrait from "@/assets/grant-portrait.jpg";
+import cameronPortrait from "@/assets/cameron-portrait.jpg";
+
+const defaultCameronFilmstrip = [cameronCycle1, cameronCycle2, cameronCycle3, cameronCycle4, cameronCycle5, cameronCycle6, cameronCycle7, cameronCycle8, cameronCycle9, cameronCycle10];
+const defaultGrantFilmstrip = [grantCycle1, grantCycle2, grantCycle3, grantCycle4, grantCycle5, grantCycle6, grantCycle7, grantCycle8, grantCycle9, grantCycle10];
+const defaultAboutRotate = [aboutRotate1, aboutRotate2, aboutRotate3, aboutRotate4];
+const defaultHomeGallery = [galleryGrant1, yinYangCover, galleryCar1, galleryCameron1, handsCover, galleryGrant2, galleryCar2, grantPortrait, galleryCar3, cameronPortrait];
+const defaultCameronLinks = [{ name: "Get His Tone", href: "#" }, { name: "Equipment", href: "#" }, { name: "Wallpapers", href: "#" }, { name: "Playlist", href: "#" }];
+
 // ─── Password Gate ───────────────────────────────────────────────
 const PasswordGate = ({ onAuth }: { onAuth: () => void }) => {
   const [password, setPassword] = useState("");
@@ -141,8 +183,8 @@ const AdminDashboard = () => {
     setContent((prev) => ({ ...prev, [key]: value }));
   };
 
-  const getGallery = (key: string): string[] => {
-    try { return JSON.parse(content[key] || "[]"); } catch { return []; }
+  const getGallery = (key: string, defaults: string[] = []): string[] => {
+    try { const p = JSON.parse(content[key] || "[]"); return p.length > 0 ? p : defaults; } catch { return defaults; }
   };
 
   const setGallery = (key: string, images: string[]) => {
@@ -268,7 +310,7 @@ const AdminDashboard = () => {
                 <p className="text-white/40 text-xs mb-4">Add, remove, or reorder gallery images. Drag & drop multiple images at once.</p>
                 <GalleryEditor
                   label="Gallery Images"
-                  images={getGallery("home_gallery_images")}
+                  images={getGallery("home_gallery_images", defaultHomeGallery)}
                   folder="home-gallery"
                   onChange={(imgs) => setGallery("home_gallery_images", imgs)}
                 />
@@ -295,7 +337,7 @@ const AdminDashboard = () => {
                 <ImageDropZone label="Hands / RnM Image" currentUrl={content.about_hands_image || ""} contentKey="about_hands_image" folder="about" onUpload={updateContent} />
                 <GalleryEditor
                   label="Rotating Grid Images (4 recommended)"
-                  images={getGallery("about_rotate_images")}
+                  images={getGallery("about_rotate_images", defaultAboutRotate)}
                   folder="about"
                   onChange={(imgs) => setGallery("about_rotate_images", imgs)}
                 />
@@ -309,14 +351,14 @@ const AdminDashboard = () => {
 
                 <LinksEditor
                   label="Cameron Links"
-                  links={(() => { try { return JSON.parse(content.cameron_links || "[]"); } catch { return []; } })()}
+                  links={(() => { try { const p = JSON.parse(content.cameron_links || "[]"); return p.length > 0 ? p : defaultCameronLinks; } catch { return defaultCameronLinks; } })()}
                   onChange={(links) => updateContent("cameron_links", JSON.stringify(links))}
                 />
 
                 <ImageDropZone label="Cameron Eyes Image" currentUrl={content.members_cameron_eyes || ""} contentKey="members_cameron_eyes" folder="members" onUpload={updateContent} />
                 <GalleryEditor
                   label="Cameron Film Strip"
-                  images={getGallery("members_cameron_filmstrip")}
+                  images={getGallery("members_cameron_filmstrip", defaultCameronFilmstrip)}
                   folder="members-cameron"
                   onChange={(imgs) => setGallery("members_cameron_filmstrip", imgs)}
                 />
@@ -333,7 +375,7 @@ const AdminDashboard = () => {
                 <ImageDropZone label="Grant Eyes Image" currentUrl={content.members_grant_eyes || ""} contentKey="members_grant_eyes" folder="members" onUpload={updateContent} />
                 <GalleryEditor
                   label="Grant Film Strip"
-                  images={getGallery("members_grant_filmstrip")}
+                  images={getGallery("members_grant_filmstrip", defaultGrantFilmstrip)}
                   folder="members-grant"
                   onChange={(imgs) => setGallery("members_grant_filmstrip", imgs)}
                 />
