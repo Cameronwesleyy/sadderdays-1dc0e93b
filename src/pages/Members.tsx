@@ -189,7 +189,7 @@ const MemberCard = ({
         <img 
           src={member.titleImage} 
           alt={member.name}
-          className="w-full h-auto max-w-[280px] md:max-w-none"
+          className="w-full h-auto max-w-[280px] md:max-w-none dark:brightness-100 brightness-75"
           style={{ minHeight: '80px', transform: `scale(${member.titleScale})`, transformOrigin: 'center' }}
         />
       </div>
