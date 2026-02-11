@@ -131,6 +131,9 @@ const Home = () => {
   const heroPink = cms.home_hero_pink || "#FFEBF5";
   const heroHoverPink = cms.home_hero_hover_pink || "#e8a0cc";
   const sectionPink = cms.home_section_pink || "#e8a0cc";
+  const aboutPink = cms.home_about_pink || "#e8a0cc";
+  const galleryPink = cms.home_gallery_pink || "#e8a0cc";
+  const heroText = cms.home_hero_text || "SADDER DAYS";
   const heroImage = cmsImg("home_hero_image", heroDuo);
   const portraitLeft = cmsImg("home_portrait_left", "/lovable-uploads/c25da56a-07ab-49f8-9230-c3b55215f540.jpg");
   const portraitRight = cmsImg("home_portrait_right", "/lovable-uploads/99f341b0-eb45-48be-b65f-2e29de6768d3.jpg");
@@ -231,9 +234,13 @@ const Home = () => {
               className="font-display text-massive transition-colors duration-300"
               style={{ color: isHeroHovered ? heroHoverPink : heroPink }}
             >
-              SADDER
-              <br />
-              DAYS
+              {heroText.includes(" ") ? (
+                <>
+                  {heroText.split(" ").slice(0, -1).join(" ")}
+                  <br />
+                  {heroText.split(" ").slice(-1)[0]}
+                </>
+              ) : heroText}
             </h1>
           </motion.div>
         </ScrollRevealHero>
@@ -365,7 +372,7 @@ const Home = () => {
 
           <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="md:col-span-4 md:col-start-8 md:self-end">
             <Link to="/about" className="block">
-              <h2 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-8xl tracking-tighter-custom mb-4 text-sd-pink hover:text-foreground transition-colors duration-300 text-left">ABOUT SADDER DAYS</h2>
+              <h2 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-8xl tracking-tighter-custom mb-4 hover:text-foreground transition-colors duration-300 text-left" style={{ color: aboutPink }}>ABOUT SADDER DAYS</h2>
             </Link>
           </motion.div>
         </section>
@@ -374,7 +381,7 @@ const Home = () => {
         <section className="py-16">
           <div className="px-6 md:px-12 mb-8">
             <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
-              <h2 className="font-display text-4xl md:text-6xl tracking-tighter-custom text-sd-pink">
+              <h2 className="font-display text-4xl md:text-6xl tracking-tighter-custom" style={{ color: galleryPink }}>
                 VISUAL
                 <br />
                 GALLERY

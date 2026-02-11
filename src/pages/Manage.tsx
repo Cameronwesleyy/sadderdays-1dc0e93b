@@ -306,21 +306,39 @@ const AdminDashboard = () => {
                 <p className="text-white/40 text-xs mb-4">Each text element has its own pink slider.</p>
                 <SinglePinkSlider
                   label="HERO — DEFAULT"
-                  previewText="SADDER DAYS"
+                  previewText={content.home_hero_text || "SADDER DAYS"}
                   value={content.home_hero_pink || "#FFEBF5"}
                   onChange={(v) => updateContent("home_hero_pink", v)}
+                  editableText
+                  onTextChange={(v) => updateContent("home_hero_text", v)}
                 />
                 <SinglePinkSlider
                   label="HERO — HOVER"
-                  previewText="SADDER DAYS"
+                  previewText={content.home_hero_text || "SADDER DAYS"}
                   value={content.home_hero_hover_pink || "#e8a0cc"}
                   onChange={(v) => updateContent("home_hero_hover_pink", v)}
+                  editableText
+                  onTextChange={(v) => updateContent("home_hero_text", v)}
                 />
                 <SinglePinkSlider
                   label="SECTION HEADING"
                   previewText={content.home_section_title || "I'VE HAD SADDER DAYS"}
                   value={content.home_section_pink || "#e8a0cc"}
                   onChange={(v) => updateContent("home_section_pink", v)}
+                  editableText
+                  onTextChange={(v) => updateContent("home_section_title", v)}
+                />
+                <SinglePinkSlider
+                  label="ABOUT SADDER DAYS"
+                  previewText="ABOUT SADDER DAYS"
+                  value={content.home_about_pink || "#e8a0cc"}
+                  onChange={(v) => updateContent("home_about_pink", v)}
+                />
+                <SinglePinkSlider
+                  label="VISUAL GALLERY"
+                  previewText="VISUAL GALLERY"
+                  value={content.home_gallery_pink || "#e8a0cc"}
+                  onChange={(v) => updateContent("home_gallery_pink", v)}
                 />
 
                 <SectionTitle className="mt-12">Home Page Images</SectionTitle>
@@ -840,11 +858,15 @@ const SinglePinkSlider = ({
   previewText,
   value,
   onChange,
+  editableText,
+  onTextChange,
 }: {
   label: string;
   previewText: string;
   value: string;
   onChange: (hex: string) => void;
+  editableText?: boolean;
+  onTextChange?: (text: string) => void;
 }) => {
   const [h, s, l] = hexToHsl(value);
 
@@ -859,6 +881,17 @@ const SinglePinkSlider = ({
           {previewText}
         </h3>
       </div>
+      {editableText && onTextChange && (
+        <div className="mb-3">
+          <label className="block text-[9px] tracking-widest-custom text-white/50 mb-1.5">TEXT</label>
+          <input
+            type="text"
+            value={previewText}
+            onChange={(e) => onTextChange(e.target.value)}
+            className="w-full bg-white/5 border border-white/20 text-white px-3 py-2 text-sm focus:outline-none focus:border-white/50 transition-colors"
+          />
+        </div>
+      )}
       <label className="block text-[9px] tracking-widest-custom text-white/50 mb-2">
         {label} — {l}%
       </label>
