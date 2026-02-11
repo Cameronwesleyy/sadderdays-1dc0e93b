@@ -128,6 +128,9 @@ const Home = () => {
     return v && v !== "__removed__" ? v : fallback;
   };
   const pinkColor = cms.home_pink_color || "#e8a0cc";
+  const heroPink = cms.home_hero_pink || "#FFEBF5";
+  const heroHoverPink = cms.home_hero_hover_pink || "#e8a0cc";
+  const sectionPink = cms.home_section_pink || "#e8a0cc";
   const heroImage = cmsImg("home_hero_image", heroDuo);
   const portraitLeft = cmsImg("home_portrait_left", "/lovable-uploads/c25da56a-07ab-49f8-9230-c3b55215f540.jpg");
   const portraitRight = cmsImg("home_portrait_right", "/lovable-uploads/99f341b0-eb45-48be-b65f-2e29de6768d3.jpg");
@@ -226,7 +229,7 @@ const Home = () => {
           <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }} className="absolute bottom-8 left-6 md:left-12">
             <h1 
               className="font-display text-massive transition-colors duration-300"
-              style={{ color: isHeroHovered ? pinkColor : lightenHex(pinkColor, 12) }}
+              style={{ color: isHeroHovered ? heroHoverPink : heroPink }}
             >
               SADDER
               <br />
@@ -243,7 +246,7 @@ const Home = () => {
             viewport={{ once: true }} 
             className="md:col-span-4 flex flex-col justify-between h-full py-4 relative z-10"
           >
-            <h2 className="font-display text-5xl md:text-7xl tracking-tighter-custom hover:text-foreground transition-colors duration-300 cursor-default" style={{ color: pinkColor }}>
+            <h2 className="font-display text-5xl md:text-7xl tracking-tighter-custom hover:text-foreground transition-colors duration-300 cursor-default" style={{ color: sectionPink }}>
               {sectionTitle.split(" ").slice(0, 2).join(" ")}
               <br />
               {sectionTitle.split(" ").slice(2).join(" ")}
