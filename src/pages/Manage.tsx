@@ -302,12 +302,25 @@ const AdminDashboard = () => {
                 <Field label="Shop Description" value={content.home_shop_copy || ""} onChange={(v) => updateContent("home_shop_copy", v)} />
                 <Field label="Gallery Subtitle" value={content.home_gallery_subtitle || ""} onChange={(v) => updateContent("home_gallery_subtitle", v)} placeholder="NYC, 2024-2025" />
 
-                <SectionTitle className="mt-12">Pink Color</SectionTitle>
-                <p className="text-white/40 text-xs mb-4">Adjust the pink used for "SADDER DAYS" hero text and "I'VE HAD SADDER DAYS" heading.</p>
-                <PinkSlider
-                  value={content.home_pink_color || "#e8a0cc"}
-                  onChange={(v) => updateContent("home_pink_color", v)}
-                  sectionTitle={content.home_section_title || "I'VE HAD SADDER DAYS"}
+                <SectionTitle className="mt-12">Pink Colors</SectionTitle>
+                <p className="text-white/40 text-xs mb-4">Each text element has its own pink slider.</p>
+                <SinglePinkSlider
+                  label="HERO — DEFAULT"
+                  previewText="SADDER DAYS"
+                  value={content.home_hero_pink || "#FFEBF5"}
+                  onChange={(v) => updateContent("home_hero_pink", v)}
+                />
+                <SinglePinkSlider
+                  label="HERO — HOVER"
+                  previewText="SADDER DAYS"
+                  value={content.home_hero_hover_pink || "#e8a0cc"}
+                  onChange={(v) => updateContent("home_hero_hover_pink", v)}
+                />
+                <SinglePinkSlider
+                  label="SECTION HEADING"
+                  previewText={content.home_section_title || "I'VE HAD SADDER DAYS"}
+                  value={content.home_section_pink || "#e8a0cc"}
+                  onChange={(v) => updateContent("home_section_pink", v)}
                 />
 
                 <SectionTitle className="mt-12">Home Page Images</SectionTitle>
@@ -822,80 +835,50 @@ const hslToHex = (h: number, s: number, l: number): string => {
   return `#${f(0)}${f(8)}${f(4)}`;
 };
 
-const PinkSlider = ({
+const SinglePinkSlider = ({
+  label,
+  previewText,
   value,
   onChange,
-  sectionTitle,
 }: {
+  label: string;
+  previewText: string;
   value: string;
   onChange: (hex: string) => void;
-  sectionTitle: string;
 }) => {
   const [h, s, l] = hexToHsl(value);
-  const lightness = l;
 
   const handleLightnessChange = (newL: number) => {
     onChange(hslToHex(h || 318, s || 52, newL));
   };
 
-  // Generate a lighter variant for the hero default state
-  const heroLight = hslToHex(h || 318, Math.min((s || 52), 80), Math.min(lightness + 12, 95));
-
   return (
-    <div className="mb-8">
-      {/* Live Preview */}
-      <div className="bg-[#1a1a1a] rounded p-6 mb-4 relative overflow-hidden">
-        <p className="text-[9px] tracking-widest-custom text-white/40 mb-4 uppercase">Live Preview</p>
-        <div className="flex flex-col gap-4">
-          <div>
-            <p className="text-[8px] tracking-widest-custom text-white/30 mb-1">HERO TEXT (DEFAULT)</p>
-            <h3 className="font-display text-4xl tracking-tighter-custom" style={{ color: heroLight }}>
-              SADDER DAYS
-            </h3>
-          </div>
-          <div>
-            <p className="text-[8px] tracking-widest-custom text-white/30 mb-1">HERO TEXT (HOVER)</p>
-            <h3 className="font-display text-4xl tracking-tighter-custom" style={{ color: value }}>
-              SADDER DAYS
-            </h3>
-          </div>
-          <div>
-            <p className="text-[8px] tracking-widest-custom text-white/30 mb-1">SECTION HEADING</p>
-            <h3 className="font-display text-3xl tracking-tighter-custom" style={{ color: value }}>
-              {sectionTitle}
-            </h3>
-          </div>
-        </div>
+    <div className="mb-6">
+      <div className="bg-[#1a1a1a] rounded p-4 mb-3">
+        <h3 className="font-display text-3xl tracking-tighter-custom" style={{ color: value }}>
+          {previewText}
+        </h3>
       </div>
-
-      {/* Slider */}
       <label className="block text-[9px] tracking-widest-custom text-white/50 mb-2">
-        PINK LIGHTNESS — {lightness}%
+        {label} — {l}%
       </label>
       <div className="flex items-center gap-4">
         <input
           type="range"
           min={50}
-          max={92}
-          value={lightness}
+          max={95}
+          value={l}
           onChange={(e) => handleLightnessChange(Number(e.target.value))}
           className="flex-1 h-2 rounded-full appearance-none cursor-pointer"
           style={{
-            background: `linear-gradient(to right, ${hslToHex(318, 52, 50)}, ${hslToHex(318, 68, 92)})`,
+            background: `linear-gradient(to right, ${hslToHex(318, 52, 50)}, ${hslToHex(318, 68, 95)})`,
           }}
         />
         <div
           className="w-8 h-8 rounded border border-white/20 flex-shrink-0"
           style={{ backgroundColor: value }}
         />
-      </div>
-
-      {/* Current hex value */}
-      <div className="flex items-center gap-3 mt-3">
-        <span className="text-[9px] tracking-widest-custom text-white/40">CURRENT:</span>
         <span className="text-xs font-mono text-white/70">{value.toUpperCase()}</span>
-        <span className="text-[9px] tracking-widest-custom text-white/40 ml-2">HERO LIGHT:</span>
-        <span className="text-xs font-mono text-white/70">{heroLight.toUpperCase()}</span>
       </div>
     </div>
   );
