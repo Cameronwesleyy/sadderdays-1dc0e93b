@@ -58,6 +58,31 @@ const navLinks = [
   { name: "MEMBERS", path: "/members" },
 ];
 
+const lightenHex = (hex: string, amount: number): string => {
+  const r = parseInt(hex.slice(1, 3), 16) / 255;
+  const g = parseInt(hex.slice(3, 5), 16) / 255;
+  const b = parseInt(hex.slice(5, 7), 16) / 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  let h = 0, s = 0;
+  const l = (max + min) / 2;
+  if (max !== min) {
+    const d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    if (max === r) h = ((g - b) / d + (g < b ? 6 : 0)) / 6;
+    else if (max === g) h = ((b - r) / d + 2) / 6;
+    else h = ((r - g) / d + 4) / 6;
+  }
+  const nl = Math.min((l * 100 + amount) / 100, 0.95);
+  const sn = s, ln = nl;
+  const a = sn * Math.min(ln, 1 - ln);
+  const f = (n: number) => {
+    const k = (n + h * 12) % 12;
+    const color = ln - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+    return Math.round(255 * color).toString(16).padStart(2, "0");
+  };
+  return `#${f(0)}${f(8)}${f(4)}`;
+};
+
 const Home = () => {
   const [isHeroHovered, setIsHeroHovered] = useState(false);
   const [showEmailPopup, setShowEmailPopup] = useState(false);
@@ -102,6 +127,7 @@ const Home = () => {
     const v = cms[key];
     return v && v !== "__removed__" ? v : fallback;
   };
+  const pinkColor = cms.home_pink_color || "#e8a0cc";
   const heroImage = cmsImg("home_hero_image", heroDuo);
   const portraitLeft = cmsImg("home_portrait_left", "/lovable-uploads/c25da56a-07ab-49f8-9230-c3b55215f540.jpg");
   const portraitRight = cmsImg("home_portrait_right", "/lovable-uploads/99f341b0-eb45-48be-b65f-2e29de6768d3.jpg");
@@ -200,7 +226,7 @@ const Home = () => {
           <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }} className="absolute bottom-8 left-6 md:left-12">
             <h1 
               className="font-display text-massive transition-colors duration-300"
-              style={{ color: isHeroHovered ? '#e8a0cc' : '#FFEBF5' }}
+              style={{ color: isHeroHovered ? pinkColor : lightenHex(pinkColor, 12) }}
             >
               SADDER
               <br />
@@ -217,7 +243,7 @@ const Home = () => {
             viewport={{ once: true }} 
             className="md:col-span-4 flex flex-col justify-between h-full py-4 relative z-10"
           >
-            <h2 className="font-display text-5xl md:text-7xl tracking-tighter-custom text-sd-pink hover:text-foreground transition-colors duration-300 cursor-default">
+            <h2 className="font-display text-5xl md:text-7xl tracking-tighter-custom hover:text-foreground transition-colors duration-300 cursor-default" style={{ color: pinkColor }}>
               {sectionTitle.split(" ").slice(0, 2).join(" ")}
               <br />
               {sectionTitle.split(" ").slice(2).join(" ")}

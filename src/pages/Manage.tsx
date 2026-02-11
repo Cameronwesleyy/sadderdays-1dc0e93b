@@ -302,6 +302,14 @@ const AdminDashboard = () => {
                 <Field label="Shop Description" value={content.home_shop_copy || ""} onChange={(v) => updateContent("home_shop_copy", v)} />
                 <Field label="Gallery Subtitle" value={content.home_gallery_subtitle || ""} onChange={(v) => updateContent("home_gallery_subtitle", v)} placeholder="NYC, 2024-2025" />
 
+                <SectionTitle className="mt-12">Pink Color</SectionTitle>
+                <p className="text-white/40 text-xs mb-4">Adjust the pink used for "SADDER DAYS" hero text and "I'VE HAD SADDER DAYS" heading.</p>
+                <PinkSlider
+                  value={content.home_pink_color || "#e8a0cc"}
+                  onChange={(v) => updateContent("home_pink_color", v)}
+                  sectionTitle={content.home_section_title || "I'VE HAD SADDER DAYS"}
+                />
+
                 <SectionTitle className="mt-12">Home Page Images</SectionTitle>
                 <p className="text-white/40 text-xs mb-6">Drag & drop images to replace them. Leave empty to use defaults.</p>
 
@@ -784,6 +792,114 @@ const TabPanel = ({ children, ...props }: { children: React.ReactNode } & Record
     {children}
   </motion.div>
 );
+
+// ─── Pink Slider ─────────────────────────────────────────────────
+const hexToHsl = (hex: string): [number, number, number] => {
+  const r = parseInt(hex.slice(1, 3), 16) / 255;
+  const g = parseInt(hex.slice(3, 5), 16) / 255;
+  const b = parseInt(hex.slice(5, 7), 16) / 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  let h = 0, s = 0;
+  const l = (max + min) / 2;
+  if (max !== min) {
+    const d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    if (max === r) h = ((g - b) / d + (g < b ? 6 : 0)) / 6;
+    else if (max === g) h = ((b - r) / d + 2) / 6;
+    else h = ((r - g) / d + 4) / 6;
+  }
+  return [Math.round(h * 360), Math.round(s * 100), Math.round(l * 100)];
+};
+
+const hslToHex = (h: number, s: number, l: number): string => {
+  const sn = s / 100, ln = l / 100;
+  const a = sn * Math.min(ln, 1 - ln);
+  const f = (n: number) => {
+    const k = (n + h / 30) % 12;
+    const color = ln - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+    return Math.round(255 * color).toString(16).padStart(2, "0");
+  };
+  return `#${f(0)}${f(8)}${f(4)}`;
+};
+
+const PinkSlider = ({
+  value,
+  onChange,
+  sectionTitle,
+}: {
+  value: string;
+  onChange: (hex: string) => void;
+  sectionTitle: string;
+}) => {
+  const [h, s, l] = hexToHsl(value);
+  const lightness = l;
+
+  const handleLightnessChange = (newL: number) => {
+    onChange(hslToHex(h || 318, s || 52, newL));
+  };
+
+  // Generate a lighter variant for the hero default state
+  const heroLight = hslToHex(h || 318, Math.min((s || 52), 80), Math.min(lightness + 12, 95));
+
+  return (
+    <div className="mb-8">
+      {/* Live Preview */}
+      <div className="bg-[#1a1a1a] rounded p-6 mb-4 relative overflow-hidden">
+        <p className="text-[9px] tracking-widest-custom text-white/40 mb-4 uppercase">Live Preview</p>
+        <div className="flex flex-col gap-4">
+          <div>
+            <p className="text-[8px] tracking-widest-custom text-white/30 mb-1">HERO TEXT (DEFAULT)</p>
+            <h3 className="font-display text-4xl tracking-tighter-custom" style={{ color: heroLight }}>
+              SADDER DAYS
+            </h3>
+          </div>
+          <div>
+            <p className="text-[8px] tracking-widest-custom text-white/30 mb-1">HERO TEXT (HOVER)</p>
+            <h3 className="font-display text-4xl tracking-tighter-custom" style={{ color: value }}>
+              SADDER DAYS
+            </h3>
+          </div>
+          <div>
+            <p className="text-[8px] tracking-widest-custom text-white/30 mb-1">SECTION HEADING</p>
+            <h3 className="font-display text-3xl tracking-tighter-custom" style={{ color: value }}>
+              {sectionTitle}
+            </h3>
+          </div>
+        </div>
+      </div>
+
+      {/* Slider */}
+      <label className="block text-[9px] tracking-widest-custom text-white/50 mb-2">
+        PINK LIGHTNESS — {lightness}%
+      </label>
+      <div className="flex items-center gap-4">
+        <input
+          type="range"
+          min={50}
+          max={92}
+          value={lightness}
+          onChange={(e) => handleLightnessChange(Number(e.target.value))}
+          className="flex-1 h-2 rounded-full appearance-none cursor-pointer"
+          style={{
+            background: `linear-gradient(to right, ${hslToHex(318, 52, 50)}, ${hslToHex(318, 68, 92)})`,
+          }}
+        />
+        <div
+          className="w-8 h-8 rounded border border-white/20 flex-shrink-0"
+          style={{ backgroundColor: value }}
+        />
+      </div>
+
+      {/* Current hex value */}
+      <div className="flex items-center gap-3 mt-3">
+        <span className="text-[9px] tracking-widest-custom text-white/40">CURRENT:</span>
+        <span className="text-xs font-mono text-white/70">{value.toUpperCase()}</span>
+        <span className="text-[9px] tracking-widest-custom text-white/40 ml-2">HERO LIGHT:</span>
+        <span className="text-xs font-mono text-white/70">{heroLight.toUpperCase()}</span>
+      </div>
+    </div>
+  );
+};
 
 const SectionTitle = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
   <h2 className={`font-display text-lg tracking-tighter-custom mb-6 ${className}`}>{children}</h2>
