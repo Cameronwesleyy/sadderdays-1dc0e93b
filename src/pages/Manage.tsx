@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Save, Plus, Trash2, ExternalLink, Lock, Music, Users, MapPin, FileText, ShoppingBag, Link2, Home, FlaskConical, Power, GripVertical } from "lucide-react";
+import { Save, Plus, Trash2, ExternalLink, Lock, Music, Users, MapPin, FileText, ShoppingBag, Link2, Home, FlaskConical, Power, GripVertical, Instagram, Youtube, Twitter, Globe, ChevronDown } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 import ImageDropZone from "@/components/admin/ImageDropZone";
@@ -434,6 +434,7 @@ const AdminDashboard = () => {
                   label="Cameron Socials"
                   links={(() => { if (!("cameron_socials" in content)) return defaultCameronSocials; try { return JSON.parse(content.cameron_socials || "[]"); } catch { return defaultCameronSocials; } })()}
                   onChange={(links) => updateContent("cameron_socials", JSON.stringify(links))}
+                  isSocial
                 />
 
                 <ImageDropZone label="Cameron Eyes Image" currentUrl={content.members_cameron_eyes || ""} defaultUrl={cameronEyes} contentKey="members_cameron_eyes" folder="members" onUpload={updateContent} />
@@ -466,6 +467,7 @@ const AdminDashboard = () => {
                   label="Grant Socials"
                   links={(() => { if (!("grant_socials" in content)) return defaultGrantSocials; try { return JSON.parse(content.grant_socials || "[]"); } catch { return defaultGrantSocials; } })()}
                   onChange={(links) => updateContent("grant_socials", JSON.stringify(links))}
+                  isSocial
                 />
 
                 <ImageDropZone label="Grant Eyes Image" currentUrl={content.members_grant_eyes || ""} defaultUrl={grantEyes} contentKey="members_grant_eyes" folder="members" onUpload={updateContent} />
@@ -838,21 +840,107 @@ const AdminDashboard = () => {
   );
 };
 
+// ─── Social Icon Database ────────────────────────────────────────
+const TikTokIconSmall = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5">
+    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+  </svg>
+);
+const PatreonIconSmall = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5">
+    <path d="M14.82 2.41c3.96 0 7.18 3.24 7.18 7.21 0 3.96-3.22 7.18-7.18 7.18-3.97 0-7.21-3.22-7.21-7.18 0-3.97 3.24-7.21 7.21-7.21M2 21.6h3.5V2.41H2V21.6z"/>
+  </svg>
+);
+const SpotifyIconSmall = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5">
+    <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+  </svg>
+);
+const SoundCloudIconSmall = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5">
+    <path d="M1.175 12.225c-.051 0-.094.046-.101.1l-.233 2.154.233 2.105c.007.058.05.098.101.098.05 0 .09-.04.099-.098l.255-2.105-.27-2.154c-.009-.057-.049-.1-.1-.1m-.899.828c-.06 0-.091.037-.104.094L0 14.479l.172 1.3c.013.06.045.094.104.094.057 0 .09-.037.104-.094l.199-1.3-.2-1.332c-.014-.057-.047-.094-.104-.094m1.79-1.065c-.067 0-.104.055-.114.116l-.214 2.375.214 2.313c.01.065.047.116.114.116s.104-.051.116-.116l.244-2.313-.244-2.375c-.012-.061-.049-.116-.116-.116m.893-.184c-.076 0-.12.063-.13.124l-.195 2.559.195 2.496c.01.065.054.124.13.124.074 0 .12-.059.13-.124l.222-2.496-.222-2.559c-.01-.061-.056-.124-.13-.124m.9-.039c-.085 0-.135.07-.143.134l-.178 2.598.178 2.543c.008.07.058.134.143.134.083 0 .135-.064.143-.134l.201-2.543-.201-2.598c-.008-.064-.06-.134-.143-.134m.928-.274c-.093 0-.15.078-.157.148l-.162 2.872.162 2.579c.007.073.064.148.157.148.089 0 .15-.075.157-.148l.185-2.579-.185-2.872c-.007-.07-.068-.148-.157-.148m.963-.182c-.1 0-.163.086-.168.158l-.15 3.054.15 2.601c.005.075.068.158.168.158.098 0 .163-.083.168-.158l.168-2.601-.168-3.054c-.005-.072-.07-.158-.168-.158m1.015-.218c-.11 0-.176.094-.182.17l-.134 3.272.134 2.612c.006.08.072.17.182.17.108 0 .176-.09.182-.17l.15-2.612-.15-3.272c-.006-.076-.074-.17-.182-.17m1.065-.092c-.116 0-.19.1-.194.18l-.12 3.364.12 2.615c.004.084.078.18.194.18s.19-.096.195-.18l.135-2.615-.135-3.364c-.005-.08-.079-.18-.195-.18m1.116-.012c-.122 0-.205.108-.208.19l-.107 3.376.107 2.607c.003.085.086.19.208.19.12 0 .203-.105.208-.19l.12-2.607-.12-3.376c-.005-.082-.088-.19-.208-.19m2.223-.073c-.132 0-.215.12-.215.206v.01l-.098 3.434.098 2.592c0 .09.083.206.215.206.132 0 .215-.116.215-.206l.105-2.592-.105-3.444c0-.086-.083-.206-.215-.206m1.074.023c-.136 0-.226.124-.228.212l-.084 3.393.084 2.575c.002.092.092.212.228.212.134 0 .226-.12.228-.212l.094-2.575-.094-3.393c-.002-.088-.094-.212-.228-.212m1.126.057c-.146 0-.234.13-.234.218l-.073 3.336.073 2.558c0 .092.088.218.234.218.144 0 .234-.126.234-.218l.08-2.558-.08-3.336c0-.088-.09-.218-.234-.218m1.178-.012c-.15 0-.242.134-.242.223l-.063 3.348.063 2.546c0 .094.092.223.242.223.148 0 .242-.129.243-.223l.07-2.546-.07-3.348c-.001-.089-.095-.223-.243-.223m1.222-.08c-.156 0-.249.14-.25.228l-.055 3.428.055 2.531c.001.094.094.228.25.228.154 0 .249-.134.25-.228l.06-2.531-.06-3.428c-.001-.088-.096-.228-.25-.228m1.268.065c-.16 0-.257.143-.257.233l-.047 3.363.047 2.517c0 .094.097.233.257.233.158 0 .257-.139.257-.233l.053-2.517-.053-3.363c0-.09-.099-.233-.257-.233m3.694 1.27c-.533 0-1.04.102-1.505.286a5.016 5.016 0 0 0-5.044-4.69c-.398 0-.789.05-1.169.148-.142.037-.18.076-.18.15v9.23c0 .078.06.146.14.156h7.758a3.2 3.2 0 0 0 3.2-3.2 3.2 3.2 0 0 0-3.2-3.08z"/>
+  </svg>
+);
+const BandcampIconSmall = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5">
+    <path d="M0 18.75l7.437-13.5H24l-7.438 13.5z"/>
+  </svg>
+);
+const ThreadsIconSmall = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5">
+    <path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.783 3.631 2.698 6.54 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.34-.779-.963-1.416-1.8-1.828a7.874 7.874 0 0 1-.345 2.861c-.477 1.26-1.282 2.131-2.328 2.524-.96.361-2.07.37-3.114.026-1.263-.416-2.27-1.29-2.752-2.391-.39-.89-.425-1.89-.098-2.81.537-1.503 1.867-2.443 3.516-2.513.948-.04 1.852.16 2.623.571.155-.834.108-1.614-.152-2.297-.417-1.1-1.34-1.755-2.633-1.86a5.236 5.236 0 0 0-.462-.02c-1.326.014-2.473.481-3.227 1.312l-1.5-1.37C8.063 4.86 9.73 4.193 11.627 4.164c.204-.003.41.003.613.017 1.989.16 3.528 1.15 4.227 2.725.496 1.117.557 2.429.172 3.748.66.35 1.225.806 1.662 1.356 1.056 1.328 1.33 3.083.77 4.932-.67 2.21-2.45 3.804-5.012 4.485a10.1 10.1 0 0 1-1.873.257zm.7-7.166c-.64.026-1.189.3-1.46.716-.222.338-.257.755-.098 1.15.274.683.918 1.2 1.66 1.445.585.194 1.183.188 1.68.003.5-.187.91-.586 1.148-1.217.204-.543.255-1.178.155-1.822-.698-.375-1.434-.36-2.085-.275-.356.041-.7.001-1 0z"/>
+  </svg>
+);
+
+const SOCIAL_ICON_OPTIONS = [
+  { name: "Instagram", icon: <Instagram className="w-3.5 h-3.5" /> },
+  { name: "TikTok", icon: <TikTokIconSmall /> },
+  { name: "Patreon", icon: <PatreonIconSmall /> },
+  { name: "YouTube", icon: <Youtube className="w-3.5 h-3.5" /> },
+  { name: "Twitter/X", icon: <Twitter className="w-3.5 h-3.5" /> },
+  { name: "Spotify", icon: <SpotifyIconSmall /> },
+  { name: "SoundCloud", icon: <SoundCloudIconSmall /> },
+  { name: "Bandcamp", icon: <BandcampIconSmall /> },
+  { name: "Threads", icon: <ThreadsIconSmall /> },
+  { name: "Website", icon: <Globe className="w-3.5 h-3.5" /> },
+  { name: "Other", icon: <ExternalLink className="w-3.5 h-3.5" /> },
+];
+
+const getSocialIcon = (name: string) => {
+  const match = SOCIAL_ICON_OPTIONS.find(o => o.name.toLowerCase() === name.toLowerCase());
+  return match?.icon || <ExternalLink className="w-3.5 h-3.5" />;
+};
+
+// ─── Social Icon Picker ──────────────────────────────────────────
+const SocialIconPicker = ({ value, onChange }: { value: string; onChange: (name: string) => void }) => {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        className="flex items-center gap-1.5 px-2.5 py-2 bg-white/5 border border-white/20 text-white hover:border-white/50 transition-colors min-w-[120px]"
+      >
+        {getSocialIcon(value)}
+        <span className="text-xs flex-1 text-left truncate">{value || "Select"}</span>
+        <ChevronDown size={10} className={`text-white/40 transition-transform ${open ? "rotate-180" : ""}`} />
+      </button>
+      {open && (
+        <div className="absolute z-50 top-full left-0 mt-1 bg-[#1a1a1a] border border-white/20 w-48 max-h-60 overflow-y-auto shadow-xl">
+          {SOCIAL_ICON_OPTIONS.map((opt) => (
+            <button
+              key={opt.name}
+              type="button"
+              onClick={() => { onChange(opt.name); setOpen(false); }}
+              className={`w-full flex items-center gap-2.5 px-3 py-2 text-xs text-left hover:bg-white/10 transition-colors ${value.toLowerCase() === opt.name.toLowerCase() ? "bg-white/10 text-white" : "text-white/70"}`}
+            >
+              {opt.icon}
+              {opt.name}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
 // ─── Links Editor ────────────────────────────────────────────────
 const LinksEditor = ({
   label,
   links,
   onChange,
+  isSocial = false,
 }: {
   label: string;
   links: { name: string; href: string }[];
   onChange: (links: { name: string; href: string }[]) => void;
+  isSocial?: boolean;
 }) => (
   <div className="mb-6">
     <div className="flex items-center justify-between mb-3">
       <label className="text-[9px] tracking-widest-custom text-white/50">{label.toUpperCase()}</label>
       <button
-        onClick={() => onChange([...links, { name: "", href: "" }])}
+        onClick={() => onChange([...links, { name: isSocial ? "Instagram" : "", href: "" }])}
         className="flex items-center gap-1 px-2 py-1 text-[10px] tracking-widest-custom border border-white/20 hover:bg-white/10 transition-colors"
       >
         <Plus size={10} /> ADD
@@ -861,17 +949,28 @@ const LinksEditor = ({
     <div className="space-y-2">
       {links.map((link, i) => (
         <div key={i} className="flex gap-2 items-center">
-          <input
-            type="text"
-            value={link.name}
-            onChange={(e) => {
-              const updated = [...links];
-              updated[i] = { ...updated[i], name: e.target.value };
-              onChange(updated);
-            }}
-            placeholder="Label"
-            className="flex-1 bg-white/5 border border-white/20 text-white px-3 py-2 text-sm focus:outline-none focus:border-white/50 transition-colors placeholder:text-white/20"
-          />
+          {isSocial ? (
+            <SocialIconPicker
+              value={link.name}
+              onChange={(name) => {
+                const updated = [...links];
+                updated[i] = { ...updated[i], name };
+                onChange(updated);
+              }}
+            />
+          ) : (
+            <input
+              type="text"
+              value={link.name}
+              onChange={(e) => {
+                const updated = [...links];
+                updated[i] = { ...updated[i], name: e.target.value };
+                onChange(updated);
+              }}
+              placeholder="Label"
+              className="w-32 bg-white/5 border border-white/20 text-white px-3 py-2 text-sm focus:outline-none focus:border-white/50 transition-colors placeholder:text-white/20"
+            />
+          )}
           <input
             type="text"
             value={link.href}
@@ -885,13 +984,14 @@ const LinksEditor = ({
           />
           <button
             onClick={() => onChange(links.filter((_, j) => j !== i))}
-            className="p-2 text-red-400 hover:bg-red-400/10 transition-colors"
+            className="p-2 text-red-400 hover:bg-red-400/10 border border-red-400/20 transition-colors"
+            title="Remove"
           >
             <Trash2 size={12} />
           </button>
         </div>
       ))}
-      {links.length === 0 && <p className="text-white/30 text-xs">No links yet. Using defaults.</p>}
+      {links.length === 0 && <p className="text-white/30 text-xs">No links yet. Click ADD to create one.</p>}
     </div>
   </div>
 );
