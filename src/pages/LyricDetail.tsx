@@ -12,6 +12,8 @@ interface Song {
   title: string;
   lyrics: string;
   sort_order: number;
+  spotify_url: string | null;
+  apple_url: string | null;
 }
 
 const GlowingWord = ({ word, delay }: { word: string; delay: number }) => (
@@ -94,6 +96,38 @@ const LyricDetail = () => {
             <h1 className="text-4xl md:text-5xl lg:text-6xl tracking-tight text-foreground font-light" style={{ fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif", fontWeight: 300 }}>
               {song.title}
             </h1>
+            {/* Play links */}
+            {(song.spotify_url || song.apple_url) && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3 }}
+                className="flex gap-4 mt-4"
+              >
+                {song.spotify_url && (
+                  <a
+                    href={song.spotify_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[10px] tracking-[0.25em] uppercase text-foreground/40 hover:text-foreground transition-colors border-b border-foreground/20 hover:border-foreground/60 pb-0.5"
+                    style={{ fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif" }}
+                  >
+                    SPOTIFY
+                  </a>
+                )}
+                {song.apple_url && (
+                  <a
+                    href={song.apple_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[10px] tracking-[0.25em] uppercase text-foreground/40 hover:text-foreground transition-colors border-b border-foreground/20 hover:border-foreground/60 pb-0.5"
+                    style={{ fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif" }}
+                  >
+                    APPLE MUSIC
+                  </a>
+                )}
+              </motion.div>
+            )}
           </motion.div>
 
           {/* Lyrics with per-word hover glow */}
