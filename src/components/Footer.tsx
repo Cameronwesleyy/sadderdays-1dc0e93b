@@ -19,7 +19,7 @@ const Footer = () => {
   return (
     <footer>
       {/* Booking Section - Black */}
-      <section className="bg-foreground text-background p-6 md:p-12">
+      <section className="text-background p-6 md:p-12" style={{ background: "linear-gradient(to bottom, transparent 0%, hsl(var(--foreground)) 30%)" }}>
         <div className="grid md:grid-cols-12 gap-8 mb-12">
           <div className="md:col-span-4">
             <h2 className="font-display text-4xl md:text-5xl tracking-tighter-custom mb-8">
