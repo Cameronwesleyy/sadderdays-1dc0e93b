@@ -14,19 +14,16 @@ interface Song {
   sort_order: number;
 }
 
-const GlowingChar = ({ char, delay }: { char: string; delay: number }) => {
-  if (char === " ") return <span>&nbsp;</span>;
-  return (
-    <motion.span
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.02, delay }}
-      className="inline-block transition-all duration-200 cursor-default hover:text-sd-pink hover:drop-shadow-[0_0_8px_hsl(318,52%,78%)] hover:scale-110"
-    >
-      {char}
-    </motion.span>
-  );
-};
+const GlowingWord = ({ word, delay }: { word: string; delay: number }) => (
+  <motion.span
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ duration: 0.02, delay }}
+    className="inline-block mr-[0.3em] transition-all duration-200 cursor-default hover:text-sd-pink hover:drop-shadow-[0_0_10px_hsl(318,52%,78%)]"
+  >
+    {word}
+  </motion.span>
+);
 
 const LyricDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -69,7 +66,7 @@ const LyricDetail = () => {
   }
 
   const lines = song.lyrics.split("\n");
-  let charIndex = 0;
+  let wordIndex = 0;
 
   return (
     <PageTransition>
@@ -102,7 +99,7 @@ const LyricDetail = () => {
             </h1>
           </motion.div>
 
-          {/* Lyrics with per-character hover glow */}
+          {/* Lyrics with per-word hover glow */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -113,15 +110,15 @@ const LyricDetail = () => {
               if (line.trim() === "") {
                 return <div key={lineIdx} className="h-5" />;
               }
-              const lineChars = line.split("").map((char, ci) => {
-                const delay = Math.min(charIndex * 0.003, 2);
-                charIndex++;
-                return <GlowingChar key={`${lineIdx}-${ci}`} char={char} delay={delay} />;
+              const words = line.split(/\s+/).filter(Boolean);
+              const lineWords = words.map((word, wi) => {
+                const delay = Math.min(wordIndex * 0.008, 2);
+                wordIndex++;
+                return <GlowingWord key={`${lineIdx}-${wi}`} word={word} delay={delay} />;
               });
-              charIndex++; // for newline
               return (
                 <p key={lineIdx} className="text-foreground/80 text-sm md:text-base leading-relaxed">
-                  {lineChars}
+                  {lineWords}
                 </p>
               );
             })}
