@@ -115,24 +115,30 @@ export type Database = {
       }
       songs: {
         Row: {
+          apple_url: string | null
           created_at: string
           id: string
           lyrics: string
           sort_order: number
+          spotify_url: string | null
           title: string
         }
         Insert: {
+          apple_url?: string | null
           created_at?: string
           id?: string
           lyrics?: string
           sort_order?: number
+          spotify_url?: string | null
           title: string
         }
         Update: {
+          apple_url?: string | null
           created_at?: string
           id?: string
           lyrics?: string
           sort_order?: number
+          spotify_url?: string | null
           title?: string
         }
         Relationships: []
