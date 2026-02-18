@@ -90,8 +90,8 @@ const LyricDetail = () => {
             transition={{ duration: 0.5 }}
             className="mb-12"
           >
-            <span className="text-foreground/40 text-sm mb-2 block">{song.sort_order}.</span>
-            <h1 className="font-display text-5xl md:text-7xl lg:text-8xl tracking-tighter-custom text-foreground">
+            <span className="text-foreground/40 text-sm mb-2 block" style={{ fontFamily: "'Courier New', 'Courier', monospace" }}>{String(song.sort_order).padStart(2, "0")}</span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl tracking-tight text-foreground font-light" style={{ fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif", fontWeight: 300 }}>
               {song.title}
             </h1>
           </motion.div>
@@ -114,7 +114,7 @@ const LyricDetail = () => {
                 return <GlowingWord key={`${lineIdx}-${wi}`} word={word} delay={delay} />;
               });
               return (
-                <p key={lineIdx} className="text-foreground/80 text-sm md:text-base leading-relaxed">
+                <p key={lineIdx} className="text-foreground/80 text-sm md:text-base leading-relaxed" style={{ fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif", fontWeight: 300 }}>
                   {lineWords}
                 </p>
               );
