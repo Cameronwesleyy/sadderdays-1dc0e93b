@@ -36,31 +36,35 @@ const Lyrics = () => {
           <ThemeToggle />
         </div>
 
-        <div className="max-w-2xl mx-auto px-6 pt-24 pb-16">
-          {/* Page Title */}
+        <div className="max-w-xl mx-auto px-8 pt-20 pb-16">
+          {/* Page Title — clean, bold, centered like the PDF */}
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="font-display text-5xl md:text-7xl tracking-tighter-custom text-center mb-16 text-foreground"
+            transition={{ duration: 0.5 }}
+            className="text-4xl md:text-5xl font-bold tracking-tight text-center mb-14 text-foreground"
+            style={{ fontFamily: "'DM Sans', 'Inter', sans-serif" }}
           >
             {pageTitle}
           </motion.h1>
 
-          {/* Song List */}
-          <div className="space-y-0">
+          {/* Song List — no borders, generous spacing, left-aligned */}
+          <div className="flex flex-col gap-8">
             {songs.map((song, i) => (
               <motion.div
                 key={song.id}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4, delay: i * 0.05 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3, delay: i * 0.04 }}
               >
                 <Link
                   to={`/lyrics/${song.id}`}
-                  className="group block py-5 border-b border-foreground/10 transition-colors duration-200"
+                  className="group block"
                 >
-                  <span className="text-base md:text-lg tracking-wide text-foreground/80 group-hover:text-sd-pink transition-colors duration-200 group-hover:drop-shadow-[0_0_12px_hsl(318,52%,78%)]">
+                  <span
+                    className="text-sm md:text-base text-foreground/70 group-hover:text-sd-pink transition-colors duration-200 group-hover:drop-shadow-[0_0_12px_hsl(318,52%,78%)]"
+                    style={{ fontFamily: "'DM Sans', 'Inter', sans-serif" }}
+                  >
                     {song.title}
                   </span>
                 </Link>
