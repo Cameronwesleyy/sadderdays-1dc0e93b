@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import PageTransition from "@/components/PageTransition";
 import Footer from "@/components/Footer";
-import ThemeToggle from "@/components/ThemeToggle";
+
 import { supabase } from "@/integrations/supabase/client";
 
 interface Song {
@@ -80,9 +80,6 @@ const LyricDetail = () => {
             <ArrowLeft size={14} />
             LYRICS
           </Link>
-        </div>
-        <div className="fixed top-4 right-6 z-50">
-          <ThemeToggle />
         </div>
 
         <div className="max-w-2xl mx-auto px-6 pt-24 pb-16">
