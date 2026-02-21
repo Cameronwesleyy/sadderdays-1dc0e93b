@@ -49,6 +49,11 @@ const Lyrics = () => {
     setFocusOrder(prev => prev.filter(sid => sid !== id));
   }, []);
 
+  const closeAll = useCallback(() => {
+    setOpenSongIds([]);
+    setFocusOrder([]);
+  }, []);
+
   const focusSong = useCallback((id: string) => {
     setFocusOrder(prev => [...prev.filter(sid => sid !== id), id]);
   }, []);
@@ -130,6 +135,7 @@ const Lyrics = () => {
       <LyricPopup
         openSongs={openSongs}
         onClose={closeSong}
+        onCloseAll={closeAll}
         onFocus={focusSong}
         focusOrder={focusOrder}
       />
