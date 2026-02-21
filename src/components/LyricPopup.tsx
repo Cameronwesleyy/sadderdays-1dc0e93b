@@ -26,7 +26,7 @@ const GlowingWord = ({ word }: { word: string }) => (
 );
 
 const DraggableWindow = ({ song, onClose, onFocus, zIndex, initialOffset }: DraggableWindowProps) => {
-  const [position, setPosition] = useState({ x: initialOffset, y: initialOffset });
+  const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const dragStart = useRef({ x: 0, y: 0 });
   const posRef = useRef(position);
@@ -175,27 +175,41 @@ const DraggableWindow = ({ song, onClose, onFocus, zIndex, initialOffset }: Drag
 interface LyricPopupProps {
   openSongs: Song[];
   onClose: (id: string) => void;
+  onCloseAll: () => void;
   onFocus: (id: string) => void;
-  focusOrder: string[]; // ordered list of song ids, last = top
+  focusOrder: string[];
 }
 
-const LyricPopup = ({ openSongs, onClose, onFocus, focusOrder }: LyricPopupProps) => {
+const LyricPopup = ({ openSongs, onClose, onCloseAll, onFocus, focusOrder }: LyricPopupProps) => {
+  if (openSongs.length === 0) return null;
+
   return (
-    <AnimatePresence>
-      {openSongs.map((song, i) => {
-        const zIdx = 50 + (focusOrder.indexOf(song.id) >= 0 ? focusOrder.indexOf(song.id) : i);
-        return (
-          <DraggableWindow
-            key={song.id}
-            song={song}
-            onClose={onClose}
-            onFocus={onFocus}
-            zIndex={zIdx}
-            initialOffset={i * 30}
-          />
-        );
-      })}
-    </AnimatePresence>
+    <>
+      {openSongs.length > 1 && (
+        <button
+          onClick={onCloseAll}
+          className="fixed top-4 right-4 z-[200] text-[10px] tracking-[0.2em] uppercase text-foreground/40 hover:text-foreground border border-foreground/20 hover:border-foreground/60 rounded-md px-3 py-1.5 bg-background/80 backdrop-blur-sm transition-colors"
+          style={{ fontFamily: "'Helvetica Neue', sans-serif" }}
+        >
+          Close All
+        </button>
+      )}
+      <AnimatePresence>
+        {openSongs.map((song, i) => {
+          const zIdx = 50 + (focusOrder.indexOf(song.id) >= 0 ? focusOrder.indexOf(song.id) : i);
+          return (
+            <DraggableWindow
+              key={song.id}
+              song={song}
+              onClose={onClose}
+              onFocus={onFocus}
+              zIndex={zIdx}
+              initialOffset={0}
+            />
+          );
+        })}
+      </AnimatePresence>
+    </>
   );
 };
 
