@@ -320,7 +320,7 @@ const AdminDashboard = () => {
                 <Field label="Section Copy" value={content.home_section_copy || ""} onChange={(v) => updateContent("home_section_copy", v)} placeholder="LOREM IPSUM DOLOR SIT AMET..." />
                 <Field label="Listen Link Text" value={content.home_listen_link || ""} onChange={(v) => updateContent("home_listen_link", v)} placeholder="LISTEN HERE" />
                 <Field label="Shop Title" value={content.home_shop_title || ""} onChange={(v) => updateContent("home_shop_title", v)} placeholder="SHOP SADDER DAYS" />
-                <Field label="Shop Launch Date" value={content.home_shop_date || ""} onChange={(v) => updateContent("home_shop_date", v)} placeholder="FEB 2026" />
+                <Field label="Shop Launch Date" value={content.home_shop_date || ""} onChange={(v) => updateContent("home_shop_date", v)} placeholder="MARCH 2026" />
                 <Field label="Shop Description" value={content.home_shop_copy || ""} onChange={(v) => updateContent("home_shop_copy", v)} />
                 <Field label="Shop Coming Soon Text" value={content.home_coming_soon || ""} onChange={(v) => updateContent("home_coming_soon", v)} placeholder="COMING SOON" />
                 <Field label="Notify Button Text" value={content.home_notify_text || ""} onChange={(v) => updateContent("home_notify_text", v)} placeholder="NOTIFY ME →" />
