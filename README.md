@@ -1,73 +1,41 @@
-# Welcome to your Lovable project
+# Sadder Days | Official Website & Management Suite
 
-## Project info
+A high-end, contemporary web application featuring a bespoke administrative backend and interactive fan experiences.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## 🛠 Features
+* **Bespoke CMS (/manage):** Password-protected dashboard (`sadderdays2025`) for real-time updates.
+* **Interactive LAB:** Custom-built Yin/Yang quiz with editable questions and logic.
+* **Dynamic Content Toggles:** Instant control over "Coming Soon" states for Shop and Tour modules.
+* **Visual Precision:** Custom "Pink Slider" hero preview and responsive image management.
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## 🌐 How to Connect Your Domain
+To move from the preview URL to your official domain (e.g., `sadderdays.world`):
 
-**Use Lovable**
+1. **Deployment:** Ensure the GitHub repo is connected to your hosting provider (Vercel or Netlify).
+2. **Add Domain:** In your hosting dashboard, go to **Settings > Domains** and add your custom URL.
+3. **Update DNS:** Login to your domain registrar (GoDaddy, Namecheap, etc.) and update the **A Record** or **CNAME** to the values provided by the host.
+4. **SSL Activation:** The site will automatically generate a security certificate once DNS propagates (usually 1–24 hours).
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+---
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🛍 Shopify Integration
+The site is designed to pull products directly from your Shopify store:
 
-**Use your preferred IDE**
+1. **Generate Buy Button:** In your Shopify Admin, create a "Buy Button" or "Collection" sales channel.
+2. **Copy IDs:** Grab the specific **Product ID** or **Collection ID** from the Shopify code snippet.
+3. **Update Dashboard:** Log in to `/manage`, navigate to the **Shopify tab**, and paste the IDs into the corresponding fields.
+4. **Go Live:** Toggle the **Shop Live** switch to **LIVE** to display the shop, or **OFF** to show the "COMING SOON" state.
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+---
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## 🔑 Technical Handoff
+The following environment variables must be configured in the hosting provider to maintain the database connection:
+* `VITE_SUPABASE_URL`
+* `VITE_SUPABASE_ANON_KEY`
 
-Follow these steps:
+> **Note:** Do not store these keys in a `.env` file within the GitHub repository for security reasons.
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+---
+*Designed & Developed by Raina Bhatia*
