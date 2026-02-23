@@ -344,8 +344,11 @@ const Members = () => {
   const parseGallery = (key: string, fallback: string[]): string[] => {
     try {
       const parsed = JSON.parse(cms[key] || "[]");
-      return parsed.length > 0 ? parsed : fallback;
+      if (!parsed.length) return fallback;
+      const valid = parsed.filter((url: string) => url.startsWith("http"));
+      return valid.length >= 3 ? valid : fallback;
     } catch { return fallback; }
+  };
   };
 
   const cmsImg = (key: string, fallback: string) => { const v = cms[key]; return v && v !== "__removed__" ? v : fallback; };
