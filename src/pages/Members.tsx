@@ -346,9 +346,8 @@ const Members = () => {
       const parsed = JSON.parse(cms[key] || "[]");
       if (!parsed.length) return fallback;
       const valid = parsed.filter((url: string) => url.startsWith("http"));
-      return valid.length >= 3 ? valid : fallback;
+      return valid.length >= 0 ? valid : fallback;
     } catch { return fallback; }
-  };
   };
 
   const cmsImg = (key: string, fallback: string) => { const v = cms[key]; return v && v !== "__removed__" ? v : fallback; };
@@ -372,7 +371,6 @@ const Members = () => {
   const grantLinks = (() => { try { const p = JSON.parse(cms.grant_links || "[]"); return p.length > 0 ? p : undefined; } catch { return undefined; } })();
   const cameronSocials = (() => { try { const p = JSON.parse(cms.cameron_socials || "[]"); return p.length > 0 ? p : undefined; } catch { return undefined; } })();
   const grantSocials = (() => { try { const p = JSON.parse(cms.grant_socials || "[]"); return p.length > 0 ? p : undefined; } catch { return undefined; } })();
-
   return (
     <PageTransition>
       <div 
