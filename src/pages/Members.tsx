@@ -72,7 +72,7 @@ const defaultMembers = [
       { name: "TikTok", icon: TikTokIcon, href: "#" },
       { name: "Patreon", icon: PatreonIcon, href: "#" },
     ],
-    ],
+
   },
   {
     name: "GRANT",
