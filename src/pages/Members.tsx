@@ -433,6 +433,5 @@ const Members = () => {
       </AnimatePresence>
     </PageTransition>
   );
-};
 
 export default Members;
